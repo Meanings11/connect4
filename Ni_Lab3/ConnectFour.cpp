@@ -6,8 +6,8 @@ using namespace std;
 
 
 void ConnectFour::initialize(){
-	for(int i=0; i<9; i++){
-		for(int k=0; k<7; k++){
+	for(int i=0; i<row; i++){
+		for(int k=0; k<column; k++){
 			board[i][k] = ' ';
 		}
 	}
@@ -18,8 +18,8 @@ void ConnectFour::display(){
 	
 	
 	cout<<" 1 2 3 4 5 6 7"<<endl;
-	for(int i=0; i<9; i++){
-		for(int k=0; k<7; k++){
+	for(int i=0; i<row; i++){
+		for(int k=0; k<column; k++){
 			cout<<"|"<<board[i][k];
 		}
 		cout<<"|"<<endl;
@@ -95,8 +95,8 @@ void ConnectFour::playGame(){
 }
 
 int ConnectFour::checkWinner(){
-	for(int k=0; k<9; k++){
-		for(int n=0; n<7; n++){
+	for(int k=0; k<row; k++){
+		for(int n=0; n<column; n++){
 			
 			if(n<4 && board[k][n]!=' ' && board[k][n]==board[k][n+1] && board[k][n]==board[k][n+2] && board[k][n]==board[k][n+3]){
 				return 1;

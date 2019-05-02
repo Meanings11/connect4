@@ -5,8 +5,11 @@
 class ConnectFour{
 
 private:
-	char board[9][7];
+	int column = 7;
+	int row = 6;
+	char board[6][7];
 	int counter=0;
+	
 
 
 public:
