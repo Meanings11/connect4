@@ -44,12 +44,12 @@ void ConnectFour::playGame(){
 	        cin>>player1Choice;
 	    }
 	    counter++;
-	    for( m=8; m>=0; m--){
-		if(board[m][player1Choice-1]!=' '){
-			continue;
-		   }else{
-		   	break;
-		   }
+	    for( m=row-1; m>=0; m--){
+			if(board[m][player1Choice-1]!=' '){
+				continue;
+			}else{
+				break;
+			}
 			  
 	    }
 	    board[m][player1Choice-1]='X';
@@ -70,7 +70,7 @@ void ConnectFour::playGame(){
 	        cin>>player2Choice;
 	    }
 	    counter++;
-	    for(n=8; n>=0; n--){
+	    for(n=row-1; n>=0; n--){
 		   if(board[n][player2Choice-1]!=' '){
 			   continue;
 		   }else{
