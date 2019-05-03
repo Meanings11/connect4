@@ -13,6 +13,7 @@ void ConnectFour::initialize(){
 	}
 }
 
+
 void ConnectFour::display(){
 
 	
