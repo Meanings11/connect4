@@ -46,6 +46,7 @@ void ConnectFour::playGame(){
 	    counter++;
 	    for( m=row-1; m>=0; m--){
 			if(board[m][player1Choice-1]!=' '){
+				cout << "m="<< m << endl;
 				continue;
 			}else{
 				break;
@@ -72,6 +73,7 @@ void ConnectFour::playGame(){
 	    counter++;
 	    for(n=row-1; n>=0; n--){
 		   if(board[n][player2Choice-1]!=' '){
+			   cout << "n="<< n << endl;
 			   continue;
 		   }else{
 		   	  break;			   
@@ -87,7 +89,7 @@ void ConnectFour::playGame(){
 	    	display();
 	     }
 	    
-    }while(counter<=63);
+    }while(counter<=row*column);
     cout<<"Tie !"<<endl;
     exit(0);
 
@@ -98,13 +100,13 @@ int ConnectFour::checkWinner(){
 	for(int k=0; k<row; k++){
 		for(int n=0; n<column; n++){
 			
-			if(n<4 && board[k][n]!=' ' && board[k][n]==board[k][n+1] && board[k][n]==board[k][n+2] && board[k][n]==board[k][n+3]){
+			if(n<column-3 && board[k][n]!=' ' && board[k][n]==board[k][n+1] && board[k][n]==board[k][n+2] && board[k][n]==board[k][n+3]){
 				return 1;
-			}else if (k<6 && board[k][n]!=' ' && board[k][n]==board[k+1][n] && board[k][n]==board[k+2][n] && board[k][n]==board[k+3][n]){
+			}else if (k<row-3 && board[k][n]!=' ' && board[k][n]==board[k+1][n] && board[k][n]==board[k+2][n] && board[k][n]==board[k+3][n]){
 				return 1;
-			}else if (n<4 && k<6 && board[k][n]!=' ' && board[k][n]==board[k+1][n+1] && board[k][n]==board[k+2][n+2] && board[k][n]==board[k+3][n+3]){
+			}else if (n<column-3 && k<row-3 && board[k][n]!=' ' && board[k][n]==board[k+1][n+1] && board[k][n]==board[k+2][n+2] && board[k][n]==board[k+3][n+3]){
 				return 1;
-			}else if (n<4 && k<6 && board[k][n]!=' ' && board[k][n]==board[k+1][n-1] && board[k][n]==board[k+2][n-2] && board[k][n]==board[k+3][n-3]){
+			}else if (n<column-3 && k<row-3 && board[k][n]!=' ' && board[k][n]==board[k+1][n-1] && board[k][n]==board[k+2][n-2] && board[k][n]==board[k+3][n-3]){
 				return 1;
 			}
 		}
