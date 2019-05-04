@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "ConnectFour.h"
+#include "test.h"
 // #include "ManhattanDistance.h"
 using namespace std;
 
@@ -169,4 +170,12 @@ int ConnectFour::checkWinner()
 		}
 	}
 	return 0;
+}
+
+//this method is used to creating a customized game table
+void ConnectFour::createTest()
+{
+	test testBoard;
+	board = testBoard.create();
+	display();
 }

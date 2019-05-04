@@ -7,8 +7,6 @@ using namespace std;
 
 char** test::create()
 {
-    
-
     char testBoard[6][7] = 
     {
         {' ',' ',' ',' ',' ',' ',' '},
