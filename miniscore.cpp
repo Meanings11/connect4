@@ -9,7 +9,6 @@ int miniscore::getScore(int a, int b, int player){
     int r = 6 - a;
     int c = b - 1;
 
-
     int score = 0;
     
     score = 2 * check2(r, c, player) + 20 * check3(r, c, player) + 1000 * check4(r, c, player);
@@ -27,7 +26,6 @@ int miniscore::check2(int a, int b, int player){
     else
         mark = 'O';
     
-
     if (c < col-1 && board[r][c+1] == mark)
         connect2Count++;
     
@@ -47,7 +45,7 @@ int miniscore::check2(int a, int b, int player){
         connect2Count++;
 
     else if (c > 0 && r > 0 && board[r+1][c+1] == mark)
-        connect2count++;
+        connect2Count++;
     
     else if (c < col-1 && r < row-1 && board[r-1][c-1] == mark)
         connect2count++;
@@ -85,13 +83,13 @@ int miniscore::check3(int c, int r, int player){
         connect3Count++;
 
     else if (c > 1 && r > 1 && board[r+1][c+1] == mark && board[r+2][c+2] == mark)
-        connect3count++;
+        connect3Count++;
     
     else if (c < col-2 && r < row-2 && board[r-1][c-1] == mark && board[r-2][c-2] == mark)
-        connect3count++;
+        connect3Count++;
 
     else if (c > 0 && c < col-1 && r > 0 && r < row -1 && (board[r+1][c+1] == mark && board[r-1][c-1] == mark) || (board[r+1][c+1] == mark && board[r-1][c-1] == mark) )
-        connect3count++;
+        connect3Count++;
 
 
     return connect3Count;
