@@ -4,14 +4,18 @@
 
 using namespace std;
 
-ManhattanDistance::ManhattanDistance(){
+ManhattanDistance::ManhattanDistance(int r, int c){
 	bestStep = 0;
+	row = r;
+	col = c;
 }
 
 ManhattanDistance::~ManhattanDistance(){}
 
 int ManhattanDistance::getMDistance(int D, int direction){
 	//top
+	int dx = 0;
+	int dy = 0;
 	if(direction == 0){
 		dx = 0;
 		dy = 3;
@@ -44,9 +48,12 @@ int ManhattanDistance::getMDistance(int D, int direction){
 	return D * (dx + dy);
 }
 
-int ManhattanDistance::pick(String[][] board){
+int ManhattanDistance::pick(string** board){
 	int D = 0;
-	int** tempA = new int[200][4];
+	int** tempA = new int*[200];
+	for(int i = 0; i < 200; i++){
+		tempA[i] = new int[4];
+	}
 	int rCount = 0;
 	int ifFRound = 0;
 
@@ -174,7 +181,7 @@ int ManhattanDistance::pick(String[][] board){
 }
 
 //check if inputing direction has enough room for 4 pieces and has enemy's chess
-bool ManhattanDistance::checkPath(String[][] board, int x, int y, int direction){
+bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 	//top
 	if(direction == 0){
 		//check if this path has enough room for 4 pieces
@@ -272,7 +279,7 @@ bool ManhattanDistance::checkPath(String[][] board, int x, int y, int direction)
 }
 
 //get the number of steps cost to connect 4 pieces in inputing direction
-int ManhattanDistance::getCost(String[][] board, int x, int y, int direction){
+int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 	int D = 0;
 	int temp = 0; 
 	//top
@@ -364,6 +371,7 @@ int ManhattanDistance::getCost(String[][] board, int x, int y, int direction){
 			D = D + temp;
 		}
 		temp = 0;
+		//bottom right
 	}else if(direction == 3){
 		//check cost from (x,y) to (x+1,y+1)
 		for(int i = y + 1; i < 8; i++){
@@ -373,7 +381,7 @@ int ManhattanDistance::getCost(String[][] board, int x, int y, int direction){
 			}
 		}
 		if(temp == 0){
-			D = D + (8 - (y + 1);
+			D = D + (8 - (y + 1));
 		}else{
 			D = D + temp;
 		}
@@ -387,7 +395,7 @@ int ManhattanDistance::getCost(String[][] board, int x, int y, int direction){
 			}
 		}
 		if(temp == 0){
-			D = D + (8 - (y + 2);
+			D = D + (8 - (y + 2));
 		}else{
 			D = D + temp;
 		}
@@ -401,7 +409,7 @@ int ManhattanDistance::getCost(String[][] board, int x, int y, int direction){
 			}
 		}
 		if(temp == 0){
-			D = D + (8 - (y + 3);
+			D = D + (8 - (y + 3));
 		}else{
 			D = D + temp;
 		}
@@ -416,7 +424,7 @@ int ManhattanDistance::getCost(String[][] board, int x, int y, int direction){
 			}
 		}
 		if(temp == 0){
-			D = D + (8 - (y + 1);
+			D = D + (8 - (y + 1));
 		}else{
 			D = D + temp;
 		}
@@ -430,7 +438,7 @@ int ManhattanDistance::getCost(String[][] board, int x, int y, int direction){
 			}
 		}
 		if(temp == 0){
-			D = D + (8 - (y + 2);
+			D = D + (8 - (y + 2));
 		}else{
 			D = D + temp;
 		}
@@ -444,7 +452,7 @@ int ManhattanDistance::getCost(String[][] board, int x, int y, int direction){
 			}
 		}
 		if(temp == 0){
-			D = D + (8 - (y + 3);
+			D = D + (8 - (y + 3));
 		}else{
 			D = D + temp;
 		}
@@ -538,4 +546,12 @@ int ManhattanDistance::getCost(String[][] board, int x, int y, int direction){
 	}
 
 	return D;
+}
+
+int ManhattanDistance::getRow(){
+	return row;
+}
+
+int ManhattanDistance::getCol(){
+	return col;
 }
