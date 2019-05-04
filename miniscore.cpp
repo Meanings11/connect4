@@ -14,6 +14,7 @@ int miniscore::getScore(int a, int b, int player){
     
     score = 2 * check2(r, c, player) + 20 * check3(r, c, player) + 1000 * check4(r, c, player);
 
+    return score; 
 }
 
 int miniscore::check2(int a, int b, int player){
