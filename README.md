@@ -1,6 +1,6 @@
 This repository is for connect4 game
 
-ps:建立自己的branch！
+ps:Push到自己的branch！
 
 Stanford Article:
  http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
