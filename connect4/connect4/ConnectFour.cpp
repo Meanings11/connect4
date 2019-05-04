@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "ConnectFour.h"
-#include "ManhattanDistance.h"
+
 using namespace std;
 
 void ConnectFour::initialize()
@@ -91,8 +91,8 @@ void ConnectFour::playGame()
 		}
 
         cout << "Rival's turn" << endl;
-        ManhattanDistance mh(row, col);
-        int computerChoice = mh.pick(board)+1;
+        //call heuristic here
+        int computerChoice = 1;
         cout<< "Computer's choice: " << computerChoice << endl;
 		counter++;
 		for (n = row - 1; n >= 0; n--)
