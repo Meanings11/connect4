@@ -7,7 +7,7 @@ class ConnectFour{
 private:
 	int col = 8;
 	int row = 8;
-	char board[row][col];
+    char** board;
 	int counter=0;
 	
 

@@ -1,14 +1,21 @@
 #include <iostream>
 #include <string>
 #include "ConnectFour.h"
+#include "ManhattanDistance.h"
 using namespace std;
 
 void ConnectFour::initialize()
 {
+    board = new char* [row];
+    for(int i =0; i < row; i++){
+        board[i] = new char [col];
+    }
 	for (int i = 0; i < row; i++)
 	{
-		for (int k = 0; k < column; k++)
+       
+		for (int k = 0; k < col; k++)
 		{
+           
 			board[i][k] = ' ';
 		}
 	}
@@ -20,7 +27,7 @@ void ConnectFour::display()
 	cout << " 1 2 3 4 5 6 7 8" << endl;
 	for (int i = 0; i < row; i++)
 	{
-		for (int k = 0; k < column; k++)
+		for (int k = 0; k < col; k++)
 		{
 
 			cout << "|" << board[i][k];
@@ -34,7 +41,6 @@ void ConnectFour::display()
 void ConnectFour::playGame()
 {
 	int player1Choice;
-	int player2Choice;
 	int m;
 	int n;
 	int check;
@@ -70,7 +76,7 @@ void ConnectFour::playGame()
 			if (check == 1)
 			{
 				display();
-				cout << "Player 1 wins !" << endl;
+				cout << "You win !" << endl;
 				exit(0);
 			}
 			else
@@ -81,16 +87,17 @@ void ConnectFour::playGame()
 		else
 		{
 			cout << "This column has been filled. Please select another column" << endl;
-			cout << endl;
 			continue;
 		}
 
-		cout << "Rival's turn";
-		
+        cout << "Rival's turn" << endl;
+        ManhattanDistance mh(row, col);
+        int computerChoice = mh.pick(board)+1;
+        cout<< "Computer's choice: " << computerChoice << endl;
 		counter++;
 		for (n = row - 1; n >= 0; n--)
 		{
-			if (board[n][player2Choice - 1] != ' ')
+			if (board[n][computerChoice - 1] != ' ')
 			{
 				continue;
 			}
@@ -102,7 +109,7 @@ void ConnectFour::playGame()
 
 		if (n >= 0)
 		{
-			board[n][player2Choice - 1] = 'O';
+			board[n][computerChoice - 1] = 'O';
 			// cout << "row: " << n << endl;
 			check = checkWinner();
 			if (check == 1)
@@ -123,7 +130,7 @@ void ConnectFour::playGame()
 			continue;
 		}
 
-	} while (counter <= row * column);
+	} while (counter <= row * col);
 	cout << "Tie !" << endl;
 	exit(0);
 }
@@ -132,10 +139,10 @@ int ConnectFour::checkWinner()
 {
 	for (int k = 0; k < row; k++)
 	{
-		for (int n = 0; n < column; n++)
+		for (int n = 0; n < col; n++)
 		{
 
-			if (n < column - 3 && board[k][n] != ' ' && board[k][n] == board[k][n + 1] && board[k][n] == board[k][n + 2] && board[k][n] == board[k][n + 3])
+			if (n < col - 3 && board[k][n] != ' ' && board[k][n] == board[k][n + 1] && board[k][n] == board[k][n + 2] && board[k][n] == board[k][n + 3])
 			{
 				return 1;
 			}
@@ -143,11 +150,11 @@ int ConnectFour::checkWinner()
 			{
 				return 1;
 			}
-			else if (n < column - 3 && k < row - 3 && board[k][n] != ' ' && board[k][n] == board[k + 1][n + 1] && board[k][n] == board[k + 2][n + 2] && board[k][n] == board[k + 3][n + 3])
+			else if (n < col - 3 && k < row - 3 && board[k][n] != ' ' && board[k][n] == board[k + 1][n + 1] && board[k][n] == board[k + 2][n + 2] && board[k][n] == board[k + 3][n + 3])
 			{
 				return 1;
 			}
-			else if (n < column - 3 && k < row - 3 && board[k][n] != ' ' && board[k][n] == board[k + 1][n - 1] && board[k][n] == board[k + 2][n - 2] && board[k][n] == board[k + 3][n - 3])
+			else if (n < col - 3 && k < row - 3 && board[k][n] != ' ' && board[k][n] == board[k + 1][n - 1] && board[k][n] == board[k + 2][n - 2] && board[k][n] == board[k + 3][n - 3])
 			{
 				return 1;
 			}
