@@ -13,10 +13,10 @@ class ManhattanDistance{
 		~ManhattanDistance();
 
 		int getMDistance(int, int);
-		int getCost(std::string**, int, int, int);
+		int getCost(char**, int, int, int);
 
-		int pick(std::string**);
-		bool checkPath(std::string**, int, int, int);
+		int pick(char**);
+		bool checkPath(char**, int, int, int);
 
 		int getRow();
 		int getCol();
