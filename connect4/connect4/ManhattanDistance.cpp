@@ -48,7 +48,7 @@ int ManhattanDistance::getMDistance(int D, int direction){
 	return D * (dx + dy);
 }
 
-int ManhattanDistance::pick(string** board){
+int ManhattanDistance::pick(char** board){
 	int D = 0;
 	int** tempA = new int*[200];
 	for(int i = 0; i < 200; i++){
@@ -60,7 +60,7 @@ int ManhattanDistance::pick(string** board){
 	//find every AI's chess as a start point
 	for(int i = 0; i < 8; i++){
 		for(int j = 0; j < 8; j++){
-			if(board[i][j] == "X"){
+			if(board[i][j] == 'X'){
 				ifFRound = 1;
 				//when find 1 chess, find all possible path to connect 4 pieces
 				//then calculate and store all manhattan distances, original
@@ -100,10 +100,10 @@ int ManhattanDistance::pick(string** board){
 		}else if(tempA[rCount][2] == 1){
 			x = tempA[rCount][0];
 			y = tempA[rCount][1];
-			if(board[x+1][y-1] != "X"){
+			if(board[x+1][y-1] != 'X'){
 				bestStep = x + 1;
 			}else{
-				if(board[x+2][y-2] != "X"){
+				if(board[x+2][y-2] != 'X'){
 					bestStep = x + 2;
 				}else{
 					bestStep = x + 3;
@@ -113,10 +113,10 @@ int ManhattanDistance::pick(string** board){
 		}else if(tempA[rCount][2] == 2){
 			x = tempA[rCount][0];
 			y = tempA[rCount][1];
-			if(board[x+1][y] != "X"){
+			if(board[x+1][y] != 'X'){
 				bestStep = x + 1;
 			}else{
-				if(board[x+2][y] != "X"){
+				if(board[x+2][y] != 'X'){
 					bestStep = x + 2;
 				}else{
 					bestStep = x + 3;
@@ -126,10 +126,10 @@ int ManhattanDistance::pick(string** board){
 		}else if(tempA[rCount][2] == 3){
 			x = tempA[rCount][0];
 			y = tempA[rCount][1];
-			if(board[x+1][y+1] != "X"){
+			if(board[x+1][y+1] != 'X'){
 				bestStep = x + 1;
 			}else{
-				if(board[x+2][y+2] != "X"){
+				if(board[x+2][y+2] != 'X'){
 					bestStep = x + 2;
 				}else{
 					bestStep = x + 3;
@@ -139,10 +139,10 @@ int ManhattanDistance::pick(string** board){
 		}else if(tempA[rCount][2] == 4){
 			x = tempA[rCount][0];
 			y = tempA[rCount][1];
-			if(board[x-1][y+1] != "X"){
+			if(board[x-1][y+1] != 'X'){
 				bestStep = x - 1;
 			}else{
-				if(board[x-2][y+2] != "X"){
+				if(board[x-2][y+2] != 'X'){
 					bestStep = x - 2;
 				}else{
 					bestStep = x - 3;
@@ -152,10 +152,10 @@ int ManhattanDistance::pick(string** board){
 		}else if(tempA[rCount][2] == 5){
 			x = tempA[rCount][0];
 			y = tempA[rCount][1];
-			if(board[x-1][y] != "X"){
+			if(board[x-1][y] != 'X'){
 				bestStep = x - 1;
 			}else{
-				if(board[x-2][y] != "X"){
+				if(board[x-2][y] != 'X'){
 					bestStep = x - 2;
 				}else{
 					bestStep = x - 3;
@@ -165,10 +165,10 @@ int ManhattanDistance::pick(string** board){
 		}else if(tempA[rCount][2] == 6){
 			x = tempA[rCount][0];
 			y = tempA[rCount][1];
-			if(board[x-1][y-1] != "X"){
+			if(board[x-1][y-1] != 'X'){
 				bestStep = x - 1;
 			}else{
-				if(board[x-2][y-2] != "X"){
+				if(board[x-2][y-2] != 'X'){
 					bestStep = x - 2;
 				}else{
 					bestStep = x - 3;
@@ -181,7 +181,7 @@ int ManhattanDistance::pick(string** board){
 }
 
 //check if inputing direction has enough room for 4 pieces and has enemy's chess
-bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
+bool ManhattanDistance::checkPath(char** board, int x, int y, int direction){
 	//top
 	if(direction == 0){
 		//check if this path has enough room for 4 pieces
@@ -191,7 +191,7 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x][y-i] == "O"){
+			if(board[x][y-i] == 'O'){
 				return false;
 			}
 		}
@@ -204,7 +204,7 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x+i][y-i] == "O"){
+			if(board[x+i][y-i] == 'O'){
 				return false;
 			}
 		}
@@ -217,7 +217,7 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x+i][y] == "O"){
+			if(board[x+i][y] == 'O'){
 				return false;
 			}
 		}
@@ -230,7 +230,7 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x+i][y+i] == "O"){
+			if(board[x+i][y+i] == 'O'){
 				return false;
 			}
 		}
@@ -243,7 +243,7 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x-i][y+i] == "O"){
+			if(board[x-i][y+i] == 'O'){
 				return false;
 			}
 		}
@@ -256,7 +256,7 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x-i][y] == "O"){
+			if(board[x-i][y] == 'O'){
 				return false;
 			}
 		}
@@ -269,7 +269,7 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x-i][y-i] == "O"){
+			if(board[x-i][y-i] == 'O'){
 				return false;
 			}
 		}
@@ -279,7 +279,7 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 }
 
 //get the number of steps cost to connect 4 pieces in inputing direction
-int ManhattanDistance::getCost(string** board, int x, int y, int direction){
+int ManhattanDistance::getCost(char** board, int x, int y, int direction){
 	int D = 0;
 	int temp = 0; 
 	//top
@@ -289,7 +289,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 	}else if(direction == 1){
 		//check cost from (x,y) to (x+1,y-1)
 		for(int i = y - 1; i < 8; i++){
-			if(board[x+1][i] == "X" || board[x+1][i] == "O"){
+			if(board[x+1][i] == 'X' || board[x+1][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -303,7 +303,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x+2,y-2)
 		for(int i = y - 2; i < 8; i++){
-			if(board[x+2][i] == "X" || board[x+2][i] == "O"){
+			if(board[x+2][i] == 'X' || board[x+2][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -317,7 +317,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x+3,y-3)
 		for(int i = y - 3; i < 8; i++){
-			if(board[x+3][i] == "X" || board[x+3][i] == "O"){
+			if(board[x+3][i] == 'X' || board[x+3][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -332,7 +332,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 	}else if(direction == 2){
 		//check cost from (x,y) to (x+1,y)
 		for(int i = y; i < 8; i++){
-			if(board[x+1][i] == "X" || board[x+1][i] == "O"){
+			if(board[x+1][i] == 'X' || board[x+1][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -346,7 +346,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x+2,y)
 		for(int i = y; i < 8; i++){
-			if(board[x+2][i] == "X" || board[x+2][i] == "O"){
+			if(board[x+2][i] == 'X' || board[x+2][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -360,7 +360,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x+3,y)
 		for(int i = y; i < 8; i++){
-			if(board[x+3][i] == "X" || board[x+3][i] == "O"){
+			if(board[x+3][i] == 'X' || board[x+3][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -375,7 +375,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 	}else if(direction == 3){
 		//check cost from (x,y) to (x+1,y+1)
 		for(int i = y + 1; i < 8; i++){
-			if(board[x+1][i] == "X" || board[x+1][i] == "O"){
+			if(board[x+1][i] == 'X' || board[x+1][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -389,7 +389,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x+2,y+2)
 		for(int i = y + 2; i < 8; i++){
-			if(board[x+2][i] == "X" || board[x+2][i] == "O"){
+			if(board[x+2][i] == 'X' || board[x+2][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -403,7 +403,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x+3,y+3)
 		for(int i = y + 3; i < 8; i++){
-			if(board[x+3][i] == "X" || board[x+3][i] == "O"){
+			if(board[x+3][i] == 'X' || board[x+3][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -418,7 +418,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 	}else if(direction == 4){
 		//check cost from (x,y) to (x-1,y+1)
 		for(int i = y + 1; i < 8; i++){
-			if(board[x-1][i] == "X" || board[x-1][i] == "O"){
+			if(board[x-1][i] == 'X' || board[x-1][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -432,7 +432,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x-2,y+2)
 		for(int i = y + 2; i < 8; i++){
-			if(board[x-2][i] == "X" || board[x-2][i] == "O"){
+			if(board[x-2][i] == 'X' || board[x-2][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -446,7 +446,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x-3,y+3)
 		for(int i = y + 3; i < 8; i++){
-			if(board[x-3][i] == "X" || board[x-3][i] == "O"){
+			if(board[x-3][i] == 'X' || board[x-3][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -461,7 +461,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 	}else if(direction == 5){
 		//check cost from (x,y) to (x-1,y)
 		for(int i = y; i < 8; i++){
-			if(board[x-1][i] == "X" || board[x-1][i] == "O"){
+			if(board[x-1][i] == 'X' || board[x-1][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -475,7 +475,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x-2,y)
 		for(int i = y; i < 8; i++){
-			if(board[x-2][i] == "X" || board[x-2][i] == "O"){
+			if(board[x-2][i] == 'X' || board[x-2][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -489,7 +489,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x-3,y)
 		for(int i = y; i < 8; i++){
-			if(board[x-3][i] == "X" || board[x-3][i] == "O"){
+			if(board[x-3][i] == 'X' || board[x-3][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -504,7 +504,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 	}else if(direction == 6){
 		//check cost from (x,y) to (x-1,y-1)
 		for(int i = y - 1; i < 8; i++){
-			if(board[x-1][i] == "X" || board[x-1][i] == "O"){
+			if(board[x-1][i] == 'X' || board[x-1][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -518,7 +518,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x-2,y-2)
 		for(int i = y - 2; i < 8; i++){
-			if(board[x-2][i] == "X" || board[x-2][i] == "O"){
+			if(board[x-2][i] == 'X' || board[x-2][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
@@ -532,7 +532,7 @@ int ManhattanDistance::getCost(string** board, int x, int y, int direction){
 
 		//check cost from (x,y) to (x-3,y-3)
 		for(int i = y - 3; i < 8; i++){
-			if(board[x-3][i] == "X" || board[x-3][i] == "O"){
+			if(board[x-3][i] == 'X' || board[x-3][i] == 'O'){
 				temp = 8 - i;
 				break;
 			}
