@@ -1,0 +1,6 @@
+*.ipch
+*.out
+**/.vscode
+**/a.out.dSYM
+*.xcodeproj
+*.exe
