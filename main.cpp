@@ -10,9 +10,19 @@
 #include "ConnectFour.h"
 using namespace std;
 
+<<<<<<< HEAD
 int main(){   
     cout<<"Welcome to Connect 4 !"<<endl;
     ConnectFour myConnectFour;
     myConnectFour.playGame();
     return 0;
+=======
+int main(){
+    
+    cout<<"Welcome to Connect 4 !"<<endl;
+    ConnectFour myConnectFour;
+    myConnectFour.initialize();
+    myConnectFour.playGame();
+    
+>>>>>>> master
 }
