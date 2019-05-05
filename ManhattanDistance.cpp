@@ -174,7 +174,7 @@ int ManhattanDistance::pick(char** board){
 		delete[] tempA[i];
 	}
 	delete[] tempA;
-	return bestStep;
+	return bestStep + 1;
 }
 
 //check if inputing direction has enough room for 4 pieces and has enemy's chess
