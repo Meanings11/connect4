@@ -71,7 +71,9 @@ int ScoreStrategy::getScore(int a, int b, int player){
     
     int score = 10;
 
-    //score = 2 * check2(r, c, player) + 20 * check3(r, c, player) + 1000 * check4(r, c, player);
+    cout << check2(4,0,0) <<endl;
+
+    score = 2 * check2(r, c, player) + 20 * check3(r, c, player) + 1000 * check4(r, c, player);
     
     //cout << score << endl;
 
@@ -125,33 +127,50 @@ int ScoreStrategy::check3(int c, int r, int player){
         mark = 'O';
     
     
-    if (c < col-2 && board[r][c+1] == mark && board[r][c+2] == mark)
+    if (c < col-2 && board[r][c+1] == mark && board[r][c+2] == mark){
+        cout << 1 <<endl;
         connect3Count++;
-    
-    else if (c > 1 && board[r][c-1] == mark && board[r][c-2] == mark)
+    }
+
+    else if (c > 1 && board[r][c-1] == mark && board[r][c-2] == mark){
+        cout << 2 <<endl;
         connect3Count++;
+    }    
     
-    else if (r < row-2 && board[r+1][c] == mark && board[r+2][c] == mark)
+    else if (r < row-2 && board[r+1][c] == mark && board[r+2][c] == mark){
+        cout << 3 <<endl;
         connect3Count++;
+    }    
     
-    else if (r > 1 && board[r-1][c] == mark && board[r-2][c] == mark)
+    else if (r > 1 && board[r-1][c] == mark && board[r-2][c] == mark){
+        cout << 4 <<endl;
         connect3Count++;
+    }    
     
-    else if (c < col-2 && r > 1 && board[r-1][c+1] == mark && board[r-2][c+2] == mark)
+    else if (c < col-2 && r > 1 && board[r-1][c+1] == mark && board[r-2][c+2] == mark){
+        cout << 5 <<endl;
         connect3Count++;
+    }    
     
-    else if (c > 1 && r < row-2 && board[r+1][c-1] == mark && board[r+2][c-2] == mark)
+    else if (c > 1 && r < row-2 && board[r+1][c-1] == mark && board[r+2][c-2] == mark){
+        cout << 6 <<endl;
         connect3Count++;
-    
-    else if (c > 1 && r > 1 && board[r+1][c+1] == mark && board[r+2][c+2] == mark)
+    }
+
+    else if (c < col-2 && r < row-2 && board[r+1][c+1] == mark && board[r+2][c+2] == mark){
+        cout << 7 <<endl;
         connect3Count++;
-    
-    else if (c < col-2 && r < row-2 && board[r-1][c-1] == mark && board[r-2][c-2] == mark)
+    }
+
+    else if (c >1 && r > 1 && board[r-1][c-1] == mark && board[r-2][c-2] == mark){
+        cout << 8 <<endl;
         connect3Count++;
-    
-    else if ((c > 0 && c < col-1 && r > 0 && r < row -1 && (board[r+1][c+1] == mark && board[r-1][c-1] == mark)) || (board[r+1][c+1] == mark && board[r-1][c-1] == mark) )
+    }
+
+    else if (c > 0 && c < col-1 && r > 0 && r < row -1 && (board[r+1][c+1] == mark && board[r-1][c-1] == mark) || (board[r+1][c+1] == mark && board[r-1][c-1] == mark) ){
+        cout << 9 <<endl;
         connect3Count++;
-    
+    }
     
     return connect3Count;
 }
