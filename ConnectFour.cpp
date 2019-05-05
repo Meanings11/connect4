@@ -182,6 +182,6 @@ void ConnectFour::createTest()
 	display();
 	ScoreStrategy t(board);
 	//check(row[i], col[i], player)
-	int score = t.check4(5,2,1);
+	int score = t.check4(3,3,1) + t.check2(3,3,1) + t.check3(3,3,1);
 	cout << score << endl;
 }

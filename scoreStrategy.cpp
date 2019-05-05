@@ -205,6 +205,27 @@ int ScoreStrategy::check4(int r, int c, int player){
     if (c > 1 && c < col - 1 && r > 1 && r < row - 1 && board[r + 1][c + 1] == mark && board[r - 2][c - 2] == mark && board[r-1][c-1])
         connect4Count++;
     
+    if (c > 0 && c < col -2 && board[r][c-1] == mark && board[r][c+1] == mark && board[r][c+2] == mark)
+        connect4Count++;
+
+    if (c > 1 && c < col-1 && board[r][c-1] == mark && board[r][c-2] == mark && board[r][c+1] == mark)
+        connect4Count++;
+    
+    if (c > 2 && c < col && board[r][c-1] == mark && board[r][c-2] == mark && board[r][c-3] == mark)
+        connect4Count++;
+    
+    if (r > 2 && r < row && board[r-1][c] == mark && board[r-2][c] == mark && board[r-3][c] == mark)
+        connect4Count++;
+    
+    if (r > 1 && r < row - 1 && board[r+1][c] == mark && board[r-1][c] == mark && board[r-2][c] == mark)
+        connect4Count++;
+
+    if (r > 0 && r < row -2 && board[r+1][c] == mark && board[r+2][c] == mark && board[r-1][c] == mark)
+        connect4Count++;
+
+    if (r > 2 && r < row && c > 2 && c < col && board[r-1][c-1] == mark && board[r-2][c-2] == mark && board[r-3][c-3] == mark)
+        connect4Count++;
+
     return connect4Count;
 }
 
