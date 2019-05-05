@@ -180,4 +180,8 @@ void ConnectFour::createTest()
 	test testBoard;
 	board = testBoard.create();
 	display();
+	ScoreStrategy t(board);
+	//check(row[i], col[i], player)
+	int score = t.check4(5,2,1);
+	cout << score << endl;
 }
