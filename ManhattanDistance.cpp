@@ -48,7 +48,7 @@ int ManhattanDistance::getMDistance(int D, int direction){
 	return D * (dx + dy);
 }
 
-int ManhattanDistance::pick(string** board){
+int ManhattanDistance::pick(char** board){
 	int D = 0;
 	int** tempA = new int*[200];
 	for(int i = 0; i < 200; i++){
@@ -56,35 +56,38 @@ int ManhattanDistance::pick(string** board){
 	}
 	int rCount = 0;
 	int ifFRound = 0;
-
 	//find every AI's chess as a start point
-	for(int i = 0; i < 8; i++){
-		for(int j = 0; j < 8; j++){
-			if(board[i][j] == "X"){
+	for(int i = 0; i < row; i++){
+		for(int j = 0; j < col; j++){
+			if(board[i][j] == 'X'){
 				ifFRound = 1;
 				//when find 1 chess, find all possible path to connect 4 pieces
 				//then calculate and store all manhattan distances, original
 				//(x,y) and direction into a temp array tempA
 				for(int k = 0; k < 7; k++){
-					if(checkPath(board, i, j, k) == true){
-						D = getCost(board, i, j, k);
-						tempA[rCount][0] = i;
-						tempA[rCount][1] = j;
+					// cout << "hellow woewod" << endl;
+					// cout << "x: " << j << endl;
+					// cout << "y: " << i << endl;
+					// cout << "checkPath " << k << ": " << checkPath(board, j, i, k) << endl;
+					if(checkPath(board, j, i, k) == true){
+						D = getCost(board, j, i, k);
+						tempA[rCount][0] = j;
+						tempA[rCount][1] = i;
 						tempA[rCount][2] = k;
 						tempA[rCount][3] = getMDistance(D, k);
-						rCount++;					
+						rCount++;				
 					}
 				}
 			}
 		}
 	}
-
 	//check if it is the 1st round, if it is, suggest the default step
 	if(ifFRound == 0){
 		bestStep = 3;
 	}else{
 		//compare all manhattan values stored, find the best one
-		for(int i = 0; i < rCount; i++){
+		rCount = rCount - 1;
+		for(int i = 0; i < rCount+1; i++){
 			if(tempA[i][3] < tempA[rCount][3]){
 				rCount = i;
 			}
@@ -94,16 +97,16 @@ int ManhattanDistance::pick(string** board){
 		int x = 0;
 		int y = 0;
 		//top
+		x = tempA[rCount][1];
+		y = tempA[rCount][0];
 		if(tempA[rCount][2] == 0){
 			bestStep = tempA[rCount][0];
 		//top right
 		}else if(tempA[rCount][2] == 1){
-			x = tempA[rCount][0];
-			y = tempA[rCount][1];
-			if(board[x+1][y-1] != "X"){
+			if(board[x-1][y+1] != 'X'){
 				bestStep = x + 1;
 			}else{
-				if(board[x+2][y-2] != "X"){
+				if(board[x-2][y+2] != 'X'){
 					bestStep = x + 2;
 				}else{
 					bestStep = x + 3;
@@ -111,12 +114,10 @@ int ManhattanDistance::pick(string** board){
 			}
 		//right
 		}else if(tempA[rCount][2] == 2){
-			x = tempA[rCount][0];
-			y = tempA[rCount][1];
-			if(board[x+1][y] != "X"){
+			if(board[x][y+1] != 'X'){
 				bestStep = x + 1;
 			}else{
-				if(board[x+2][y] != "X"){
+				if(board[x][y+2] != 'X'){
 					bestStep = x + 2;
 				}else{
 					bestStep = x + 3;
@@ -124,12 +125,10 @@ int ManhattanDistance::pick(string** board){
 			}
 		//buttom right
 		}else if(tempA[rCount][2] == 3){
-			x = tempA[rCount][0];
-			y = tempA[rCount][1];
-			if(board[x+1][y+1] != "X"){
+			if(board[x+1][y+1] != 'X'){
 				bestStep = x + 1;
 			}else{
-				if(board[x+2][y+2] != "X"){
+				if(board[x+2][y+2] != 'X'){
 					bestStep = x + 2;
 				}else{
 					bestStep = x + 3;
@@ -137,12 +136,10 @@ int ManhattanDistance::pick(string** board){
 			}
 		//bottom left
 		}else if(tempA[rCount][2] == 4){
-			x = tempA[rCount][0];
-			y = tempA[rCount][1];
-			if(board[x-1][y+1] != "X"){
+			if(board[x+1][y-1] != 'X'){
 				bestStep = x - 1;
 			}else{
-				if(board[x-2][y+2] != "X"){
+				if(board[x+2][y-2] != 'X'){
 					bestStep = x - 2;
 				}else{
 					bestStep = x - 3;
@@ -150,12 +147,10 @@ int ManhattanDistance::pick(string** board){
 			}
 		//left
 		}else if(tempA[rCount][2] == 5){
-			x = tempA[rCount][0];
-			y = tempA[rCount][1];
-			if(board[x-1][y] != "X"){
+			if(board[x][y-1] != 'X'){
 				bestStep = x - 1;
 			}else{
-				if(board[x-2][y] != "X"){
+				if(board[x][y-2] != 'X'){
 					bestStep = x - 2;
 				}else{
 					bestStep = x - 3;
@@ -163,12 +158,10 @@ int ManhattanDistance::pick(string** board){
 			}
 		//top left
 		}else if(tempA[rCount][2] == 6){
-			x = tempA[rCount][0];
-			y = tempA[rCount][1];
-			if(board[x-1][y-1] != "X"){
+			if(board[x-1][y-1] != 'X'){
 				bestStep = x - 1;
 			}else{
-				if(board[x-2][y-2] != "X"){
+				if(board[x-2][y-2] != 'X'){
 					bestStep = x - 2;
 				}else{
 					bestStep = x - 3;
@@ -176,12 +169,16 @@ int ManhattanDistance::pick(string** board){
 			}
 		}
 	}
-
+	//delete the dynamically allocated 2-d array
+	for(int i = 0; i < 200; i++){
+		delete[] tempA[i];
+	}
+	delete[] tempA;
 	return bestStep;
 }
 
 //check if inputing direction has enough room for 4 pieces and has enemy's chess
-bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
+bool ManhattanDistance::checkPath(char** board, int x, int y, int direction){
 	//top
 	if(direction == 0){
 		//check if this path has enough room for 4 pieces
@@ -191,59 +188,60 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x][y-i] == "O"){
+			if(board[y-i][x] == 'O'){
 				return false;
 			}
 		}
 	//top right
 	}else if(direction == 1){
+
 		//check if this path has enough room for 4 pieces
-		if(x > 4 || y < 3){
+		if(x > (row - 4) || y < 3){
 			return false;
 		}
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x+i][y-i] == "O"){
+			if(board[y-i][x+i] == 'O'){
 				return false;
 			}
 		}
 	//right
 	}else if(direction == 2){
 		//check if this path has enough room for 4 pieces
-		if(x > 4){
+		if(x > (row - 4)){
 			return false;
 		}
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x+i][y] == "O"){
+			if(board[y][x+i] == 'O'){
 				return false;
 			}
 		}
 	//bottom right
 	}else if(direction == 3){
 		//check if this path has enough room for 4 pieces
-		if(x > 4 || y > 4){
+		if(x > (row - 4) || y > (col - 5)){
 			return false;
 		}
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x+i][y+i] == "O"){
+			if(board[y+i][x+i] == 'O'){
 				return false;
 			}
 		}
 	//bottom left
 	}else if(direction == 4){
 		//check if this path has enough room for 4 pieces
-		if(x < 3 || y > 4){
+		if(x < 3 || y > (col - 5)){
 			return false;
 		}
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x-i][y+i] == "O"){
+			if(board[y+i][x-i] == 'O'){
 				return false;
 			}
 		}
@@ -256,7 +254,7 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x-i][y] == "O"){
+			if(board[y][x-i] == 'O'){
 				return false;
 			}
 		}
@@ -269,7 +267,7 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[x-i][y-i] == "O"){
+			if(board[y-i][x-i] == 'O'){
 				return false;
 			}
 		}
@@ -279,268 +277,272 @@ bool ManhattanDistance::checkPath(string** board, int x, int y, int direction){
 }
 
 //get the number of steps cost to connect 4 pieces in inputing direction
-int ManhattanDistance::getCost(string** board, int x, int y, int direction){
+int ManhattanDistance::getCost(char** board, int x, int y, int direction){
 	int D = 0;
 	int temp = 0; 
+
 	//top
 	if(direction == 0){
 		D = 3;
 	//top right
 	}else if(direction == 1){
 		//check cost from (x,y) to (x+1,y-1)
-		for(int i = y - 1; i < 8; i++){
-			if(board[x+1][i] == "X" || board[x+1][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y-1; i--){
+			if(board[i][x+1] == 'X' || board[i][x+1] == 'O'){
+				temp = i - (y-1);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y - 1));
-		}else{
+
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y-1);
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x+2,y-2)
-		for(int i = y - 2; i < 8; i++){
-			if(board[x+2][i] == "X" || board[x+2][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y-2; i--){
+			if(board[i][x+2] == 'X' || board[i][x+2] == 'O'){
+				temp = i - (y-2);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y - 2));
-		}else{
+
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y-2);
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x+3,y-3)
-		for(int i = y - 3; i < 8; i++){
-			if(board[x+3][i] == "X" || board[x+3][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1 ; i >= y-3; i--){
+			if(board[i][x+3] == 'X' || board[i][x+3] == 'O'){
+				temp = i - (y-3);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y - 3));
-		}else{
+
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y-3);
 		}
 		temp = 0;
 	//right
 	}else if(direction == 2){
 		//check cost from (x,y) to (x+1,y)
-		for(int i = y; i < 8; i++){
-			if(board[x+1][i] == "X" || board[x+1][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y; i--){
+			if(board[i][x+1] == 'X' || board[i][x+1] == 'O'){
+				temp = i - y;
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - y);
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - y;
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x+2,y)
-		for(int i = y; i < 8; i++){
-			if(board[x+2][i] == "X" || board[x+2][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y; i--){
+			if(board[i][x+2] == 'X' || board[i][x+2] == 'O'){
+				temp = i - y;
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - y);
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - y;
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x+3,y)
-		for(int i = y; i < 8; i++){
-			if(board[x+3][i] == "X" || board[x+3][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y; i--){
+			if(board[i][x+3] == 'X' || board[i][x+3] == 'O'){
+				temp = i - y;
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - y);
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - y;
 		}
 		temp = 0;
 		//bottom right
 	}else if(direction == 3){
 		//check cost from (x,y) to (x+1,y+1)
-		for(int i = y + 1; i < 8; i++){
-			if(board[x+1][i] == "X" || board[x+1][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y+1; i--){
+			if(board[i][x+1] == 'X' || board[i][x+1] == 'O'){
+				temp = i - (y+1);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y + 1));
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y+1);
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x+2,y+2)
-		for(int i = y + 2; i < 8; i++){
-			if(board[x+2][i] == "X" || board[x+2][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y+2; i--){
+			if(board[i][x+2] == 'X' || board[i][x+2] == 'O'){
+				temp = i - (y+2);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y + 2));
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y+2);
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x+3,y+3)
-		for(int i = y + 3; i < 8; i++){
-			if(board[x+3][i] == "X" || board[x+3][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y+3; i--){
+			if(board[i][x+3] == 'X' || board[i][x+3] == 'O'){
+				temp = i - (y+3);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y + 3));
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y+3);
 		}
 		temp = 0;
 	//bottom left
 	}else if(direction == 4){
 		//check cost from (x,y) to (x-1,y+1)
-		for(int i = y + 1; i < 8; i++){
-			if(board[x-1][i] == "X" || board[x-1][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y+1; i--){
+			if(board[i][x-1] == 'X' || board[i][x-1] == 'O'){
+				temp = i - (y+1);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y + 1));
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y+1);
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x-2,y+2)
-		for(int i = y + 2; i < 8; i++){
-			if(board[x-2][i] == "X" || board[x-2][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y+2; i--){
+			if(board[i][x-2] == 'X' || board[i][x-2] == 'O'){
+				temp = i - (y+2);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y + 2));
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y+2);
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x-3,y+3)
-		for(int i = y + 3; i < 8; i++){
-			if(board[x-3][i] == "X" || board[x-3][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y+3; i--){
+			if(board[i][x-3] == 'X' || board[i][x-3] == 'O'){
+				temp = i - (y+3);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y + 3));
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y+3);
 		}
 		temp = 0;
 	//left
 	}else if(direction == 5){
 		//check cost from (x,y) to (x-1,y)
-		for(int i = y; i < 8; i++){
-			if(board[x-1][i] == "X" || board[x-1][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y; i--){
+			if(board[i][x-1] == 'X' || board[i][x-1] == 'O'){
+				temp = i - y;
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - y);
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - y;
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x-2,y)
-		for(int i = y; i < 8; i++){
-			if(board[x-2][i] == "X" || board[x-2][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y; i--){
+			if(board[i][x-2] == 'X' || board[i][x-2] == 'O'){
+				temp = i - y;
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - y);
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - y;
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x-3,y)
-		for(int i = y; i < 8; i++){
-			if(board[x-3][i] == "X" || board[x-3][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y; i--){
+			if(board[i][x-3] == 'X' || board[i][x-3] == 'O'){
+				temp = i - y;
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - y);
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - y;
 		}
 		temp = 0;
 	//top left
 	}else if(direction == 6){
 		//check cost from (x,y) to (x-1,y-1)
-		for(int i = y - 1; i < 8; i++){
-			if(board[x-1][i] == "X" || board[x-1][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y-1; i--){
+			if(board[i][x-1] == 'X' || board[i][x-1] == 'O'){
+				temp = i - (y-1);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y - 1));
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y-1);
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x-2,y-2)
-		for(int i = y - 2; i < 8; i++){
-			if(board[x-2][i] == "X" || board[x-2][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y-2; i--){
+			if(board[i][x-2] == 'X' || board[i][x-2] == 'O'){
+				temp = i - (y-2);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y - 2));
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y-2);
 		}
 		temp = 0;
 
 		//check cost from (x,y) to (x-3,y-3)
-		for(int i = y - 3; i < 8; i++){
-			if(board[x-3][i] == "X" || board[x-3][i] == "O"){
-				temp = 8 - i;
+		for(int i = row - 1; i >= y-3; i--){
+			if(board[i][x-3] == 'X' || board[i][x-3] == 'O'){
+				temp = i - (y-3);
 				break;
 			}
 		}
-		if(temp == 0){
-			D = D + (8 - (y - 3));
-		}else{
+		if(temp != 0){
 			D = D + temp;
+		}else{
+			D = D + row - (y-3);
 		}
 		temp = 0;
 	}
