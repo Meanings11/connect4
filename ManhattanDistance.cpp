@@ -220,7 +220,7 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction, int
 	}else if(direction == 1){
 
 		//check if this path has enough room for 4 pieces
-		if(x > (row - 4) || y < 3){
+		if(x > (col - 4) || y < 3){
 			return false;
 		}
 
@@ -233,7 +233,7 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction, int
 	//right
 	}else if(direction == 2){
 		//check if this path has enough room for 4 pieces
-		if(x > (row - 4)){
+		if(x > (col - 4)){
 			return false;
 		}
 
@@ -246,7 +246,7 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction, int
 	//bottom right
 	}else if(direction == 3){
 		//check if this path has enough room for 4 pieces
-		if(x > (row - 4) || y > (col - 5)){
+		if(x > (col - 4) || y > (row - 4)){
 			return false;
 		}
 
@@ -259,7 +259,7 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction, int
 	//bottom left
 	}else if(direction == 4){
 		//check if this path has enough room for 4 pieces
-		if(x < 3 || y > (col - 5)){
+		if(x < 3 || y > (row - 4)){
 			return false;
 		}
 
