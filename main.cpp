@@ -8,7 +8,9 @@
 
 #include <iostream>
 #include "ConnectFour.h"
+#include "predictPossibility.hpp"
 using namespace std;
+
 
 int main(){
     

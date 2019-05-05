@@ -15,21 +15,21 @@ class ScoreStrategy {
     private:
         predictPossibility* possibility;
         char** board;
-        int r_O;
+        //int r_O;
         int col = 7;
         int row = 6;
     public:
         ScoreStrategy(char**);
         ~ScoreStrategy();
         void guessPlus();
-        int guessMinus(char**);
+        int guessMinus(char[][7]);//char**);
         int getScore(int, int, int);
         int check2(int, int , int);
         int check3(int, int, int);
         int check4(int, int, int);
         bool checkBound();
         bool checkPath();
-        int chessPosition(int, char**);
+        int chessPosition(int, char[6][7]);//char**);
         void pickMove ();
     
 };

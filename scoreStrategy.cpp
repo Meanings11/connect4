@@ -20,26 +20,70 @@ ScoreStrategy::ScoreStrategy(char** b){
 
 void ScoreStrategy::guessPlus(){
     for(int i = 0; i < 7; i++){
-        //std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?"<<std::endl;
 
-        char** temp = board;
-
-        possibility[i].setCol(i+1);
+        // char** temp = new char*[6];
+        // for (int i=0; i<6; i++){
+        //     temp [i] = new char[7];
+        // }
         
-        
-        r_O = chessPosition(i, temp);
+        // for (int i=0; i<6; i++){
+        //     for (int k=0; k<7; k++){
+        //         temp[i][k] = board[i][k];
+        //     }
+        // }
 
-        possibility[i].setPlus(getScore(r_O, i+1, 1));
-        temp[i][6-r_O] = 'O';
+        char temp [6][7];
+        for (int i=0; i<6; i++){
+            for (int k=0; k<7; k++){
+                temp[i][k] = board[i][k];
+            }
+        }       
+
+        for (int i=0; i<6; i++){
+                for (int k=0; k<7; k++){
+                    cout << board[i][k];
+                }
+            }
+        cout << endl;
+
+        //cout << temp [4][0] <<endl;
+
+        possibility[i].setCol(i+1);       
+        possibility[i].setR(chessPosition(i, temp));
+        
+        //cout << possibility[i].getR() <<endl;
+
+        possibility[i].setPlus(getScore(possibility[i].getR(), i+1, 1));
+
+        temp[6-possibility[i].getR()][i] = 'O';
+
         possibility[i].setMinus(guessMinus(temp));
-        delete [] temp;
+        possibility[i].setTotal();
+        
+        // for(int i=0; i<6; i++){
+        //     delete[] temp[i];
+        // }
+        
+        // delete[] temp;
+
     }
+
+
     pickMove();
-    std::cout << "!!!" <<std::endl;
     
 }
 
-int ScoreStrategy::guessMinus(char** t){
+int ScoreStrategy::guessMinus(char t[6][7]){//char** t){
+    
+    // for (int i=0; i<6; i++){
+    //     for (int k=0; k<7; k++){
+    //         if (t[i][k] == 'O'){
+    //             cout << i <<endl;
+    //             cout << k <<endl;
+    //         }
+    //     }
+    // }
+    
     int* minus = new int[7];
     for (int i = 0; i < 7; i++){
         int r_X = chessPosition(i,t);
@@ -50,30 +94,43 @@ int ScoreStrategy::guessMinus(char** t){
         if (key < minus[k])
             key = minus[k];
     }
+    
     return key;
 }
 
 void ScoreStrategy::pickMove(){
+    
     predictPossibility best;
     for (int i = 0; i < 7; i++){
+        cout << possibility[i].getTotal() <<endl;
         if (best.getTotal() < possibility[i].getTotal()){
             best = possibility[i];
         }
     }
-    board[r_O][best.getCol()] = 'O';
+
+    //cout << best.getCol() <<endl;
+    cout << best.getR() <<endl;
+    board[6-best.getR()][best.getCol()-1] = 'O';
+
+    // for (int i=0; i<6; i++){
+    //     for (int k=0; k<7; k++){
+    //         cout << board[i][k];
+    //     }
+    // }
+    // cout << endl;
+
+    //cout << board[6-best.getR()][best.getCol()] <<endl;
 }
 
 int ScoreStrategy::getScore(int a, int b, int player){
-    cout << "GET SCORE" << endl;
     
     int r = 6 - a;
     int c = b - 1;
     
-    int score = 10;
+    int score = 0;
 
-    //score = 2 * check2(r, c, player) + 20 * check3(r, c, player) + 1000 * check4(r, c, player);
+    score = 2 * check2(r, c, player) + 20 * check3(r, c, player) + 1000 * check4(r, c, player);
     
-    //cout << score << endl;
 
     return score;
 }
@@ -237,7 +294,7 @@ bool ScoreStrategy::checkPath(){
     return true;
 }
 
-int ScoreStrategy::chessPosition(int c, char** t){
+int ScoreStrategy::chessPosition(int c, char t[6][7]){//char** t){
 
 
     for (int i = 5; i >= 0 ; i--){

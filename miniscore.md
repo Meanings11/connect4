@@ -4,11 +4,8 @@ class miniscore{
         char** board
 
     public:    
-<<<<<<< HEAD
-        getScore(int)      //连子得分 connect2,3,4, call checkPath(),checkBound()
-=======
+
         getScore()      //连子得分 connect2,3,4, call checkPath(),checkBound()
->>>>>>> 2efe1a2c9017bd579c8cfab4be8cb0abf21b06eb
             checkTwo()
             checkThree()
             checkFour()
