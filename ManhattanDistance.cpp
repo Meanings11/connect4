@@ -1,9 +1,9 @@
 #include "ManhattanDistance.h"
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
+//constructor
 ManhattanDistance::ManhattanDistance(int r, int c){
 	bestStep = 0;
 	row = r;
@@ -12,6 +12,7 @@ ManhattanDistance::ManhattanDistance(int r, int c){
 
 ManhattanDistance::~ManhattanDistance(){}
 
+//return manhattan distance value for certain path
 int ManhattanDistance::getMDistance(int D, int direction){
 	//top
 	int dx = 0;
@@ -56,6 +57,21 @@ int ManhattanDistance::pick(char** board){
 	}
 	int rCount = 0;
 	int ifFRound = 0;
+	//find every User's chess as a start point
+	for(int i = 0; i < row; i++){
+		for(int j = 0; j < col; j++){
+			if(board[i][j] == 'O'){
+				for(int k = 0; k < 7; k++){
+					if(checkPath(board, j, i, k, 0) == true){
+						if(defense(board, i, j, k) != -1){
+							return defense(board, i, j, k) + 1;
+						}			
+					}
+				}
+			}
+		}
+	}
+
 	//find every AI's chess as a start point
 	for(int i = 0; i < row; i++){
 		for(int j = 0; j < col; j++){
@@ -65,11 +81,7 @@ int ManhattanDistance::pick(char** board){
 				//then calculate and store all manhattan distances, original
 				//(x,y) and direction into a temp array tempA
 				for(int k = 0; k < 7; k++){
-					// cout << "hellow woewod" << endl;
-					// cout << "x: " << j << endl;
-					// cout << "y: " << i << endl;
-					// cout << "checkPath " << k << ": " << checkPath(board, j, i, k) << endl;
-					if(checkPath(board, j, i, k) == true){
+					if(checkPath(board, j, i, k, 1) == true){
 						D = getCost(board, j, i, k);
 						tempA[rCount][0] = j;
 						tempA[rCount][1] = i;
@@ -83,7 +95,11 @@ int ManhattanDistance::pick(char** board){
 	}
 	//check if it is the 1st round, if it is, suggest the default step
 	if(ifFRound == 0){
-		bestStep = 3;
+		if(board[row-1][3] != 'O'){
+			bestStep = 3;
+		}else{
+			bestStep = 2;
+		}
 	}else{
 		//compare all manhattan values stored, find the best one
 		rCount = rCount - 1;
@@ -178,7 +194,15 @@ int ManhattanDistance::pick(char** board){
 }
 
 //check if inputing direction has enough room for 4 pieces and has enemy's chess
-bool ManhattanDistance::checkPath(char** board, int x, int y, int direction){
+bool ManhattanDistance::checkPath(char** board, int x, int y, int direction, int aOrD){
+	//check need to attack of defence
+	char str;
+	if(aOrD == 0){
+		str = 'X';
+	}else if(aOrD == 1){
+		str = 'O';
+	}
+
 	//top
 	if(direction == 0){
 		//check if this path has enough room for 4 pieces
@@ -188,7 +212,7 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[y-i][x] == 'O'){
+			if(board[y-i][x] == str){
 				return false;
 			}
 		}
@@ -202,7 +226,7 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[y-i][x+i] == 'O'){
+			if(board[y-i][x+i] == str){
 				return false;
 			}
 		}
@@ -215,7 +239,7 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[y][x+i] == 'O'){
+			if(board[y][x+i] == str){
 				return false;
 			}
 		}
@@ -228,7 +252,7 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[y+i][x+i] == 'O'){
+			if(board[y+i][x+i] == str){
 				return false;
 			}
 		}
@@ -241,7 +265,7 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[y+i][x-i] == 'O'){
+			if(board[y+i][x-i] == str){
 				return false;
 			}
 		}
@@ -254,7 +278,7 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[y][x-i] == 'O'){
+			if(board[y][x-i] == str){
 				return false;
 			}
 		}
@@ -267,7 +291,7 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction){
 
 		//check if this path has enemy's chess
 		for(int i = 1; i < 4; i++){
-			if(board[y-i][x-i] == 'O'){
+			if(board[y-i][x-i] == str){
 				return false;
 			}
 		}
@@ -548,6 +572,71 @@ int ManhattanDistance::getCost(char** board, int x, int y, int direction){
 	}
 
 	return D;
+}
+
+//defence when enemy has 1 more step to win
+int ManhattanDistance::defense(char** board, int x, int y, int direction){
+		if(direction == 0){
+			if(board[x-1][y] == 'O' && board[x-2][y] == 'O'){
+				return y;
+			}
+		//top right
+		}else if(direction == 1){
+			if(board[x-1][y+1] == 'O' && board[x-2][y+2] == 'O' && board[x-2][y+3] != ' '){
+				return y+3;
+			}
+		//right
+		}else if(direction == 2){
+			if(row > x + 1){
+				if(board[x][y+1] == 'O' && board[x][y+2] == 'O' && board[x+1][y+3] != ' '){
+					return y+3;
+				}
+			}else{
+				if(board[x][y+1] == 'O' && board[x][y+2] == 'O'){
+					return y+3;
+				}
+			}
+		//bottom right
+		}else if(direction == 3){
+			if(row > x + 4){
+				if(board[x+1][y+1] == 'O' && board[x+2][y+2] == 'O' && board[x+2][y+3] != ' '){
+					return y+3;
+				}
+			}else{
+				if(board[x+1][y+1] == 'O' && board[x+2][y+2] == 'O'){
+					return y+3;
+				}
+			}
+		//bottom left	
+		}else if(direction == 4){
+			if(row > x + 4){
+				if(board[x+1][y-1] == 'O' && board[x+2][y-2] == 'O' && board[x+2][y-3] != ' '){
+					return y-3;
+				}
+			}else{
+				if(board[x+1][y-1] == 'O' && board[x+2][y-2] == 'O'){
+					return y-3;
+				}
+			}
+		//left	
+		}else if(direction == 5){
+			if(row > x + 1){
+				if(board[x][y-1] == 'O' && board[x][y-2] == 'O' && board[x+1][y-3] != ' '){
+					return y-3;
+				}
+			}else{
+				if(board[x][y-1] == 'O' && board[x][y-2] == 'O'){
+					return y-3;
+				}
+			}
+		//top left
+		}else if(direction == 6){
+			if(board[x-1][y-1] == 'O' && board[x-2][y-2] == 'O' && board[x-2][y-3] != ' '){
+				return y-3;
+			}
+		}
+
+		return -1;
 }
 
 int ManhattanDistance::getRow(){

@@ -16,11 +16,12 @@ class ManhattanDistance{
 		int getCost(char**, int, int, int);
 
 		int pick(char**);
-		bool checkPath(char**, int, int, int);
+		bool checkPath(char**, int, int, int, int);
+
+		int defense(char**, int, int, int);
 
 		int getRow();
 		int getCol();
-
 };
 
 #endif
