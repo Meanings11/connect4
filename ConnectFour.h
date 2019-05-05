@@ -1,6 +1,7 @@
 #ifndef Something
 #define Something
 #include <string>
+#include "test.h"
 
 class ConnectFour{
 
@@ -17,7 +18,8 @@ public:
 	void display();
 	void playGame();
 	int checkWinner();
-	
+
+	void createTest();
 
 };
 #endif
