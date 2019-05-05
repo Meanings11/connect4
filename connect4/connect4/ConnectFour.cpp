@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "ConnectFour.h"
+#include "scoreStrategy.hpp"
 
 using namespace std;
 
@@ -91,44 +92,52 @@ void ConnectFour::playGame()
 		}
 
         cout << "Rival's turn" << endl;
-        //call heuristic here
-        int computerChoice = 1;
-        cout<< "Computer's choice: " << computerChoice << endl;
-		counter++;
-		for (n = row - 1; n >= 0; n--)
-		{
-			if (board[n][computerChoice - 1] != ' ')
-			{
-				continue;
-			}
-			else
-			{
-				break;
-			}
-		}
+        
+		//call heuristic here
+		ScoreStrategy s(board);
+		s.guessPlus();
 
-		if (n >= 0)
-		{
-			board[n][computerChoice - 1] = 'O';
-			// cout << "row: " << n << endl;
-			check = checkWinner();
-			if (check == 1)
-			{
-				display();
-				cout << "Player 2 wins !" << endl;
-				exit(0);
-			}
-			else
-			{
-				display();
-			}
-		}
-		else
-		{
-			cout << "This column has been filled. Please select another column" << endl;
-			cout << endl;
-			continue;
-		}
+		cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?"<<endl;
+
+
+		display();
+        // int computerChoice = 1;
+        // cout<< "Computer's choice: " << computerChoice << endl;
+		// counter++;
+		// for (n = row - 1; n >= 0; n--)
+		// {
+		// 	if (board[n][computerChoice - 1] != ' ')
+		// 	{
+		// 		continue;
+		// 	}
+		// 	else
+		// 	{
+		// 		break;
+		// 	}
+		// }
+
+		// if (n >= 0)
+		// {
+		// 	board[n][computerChoice - 1] = 'O';
+		// 	// cout << "row: " << n << endl;
+		// 	check = checkWinner();
+		// 	if (check == 1)
+		// 	{
+		// 		display();
+		// 		cout << "Player 2 wins !" << endl;
+		// 		exit(0);
+		// 	}
+		// 	else
+		// 	{
+		// 		display();
+		// 	}
+		// }
+		// else
+		// {
+		// 	cout << "This column has been filled. Please select another column" << endl;
+		// 	cout << endl;
+		// 	continue;
+		// }
 
 	} while (counter <= row * col);
 	cout << "Tie !" << endl;

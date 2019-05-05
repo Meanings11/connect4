@@ -5,8 +5,8 @@
 class ConnectFour{
 
 private:
-	int col = 8;
-	int row = 8;
+	int col = 7;
+	int row = 6;
     char** board;
 	int counter=0;
 	

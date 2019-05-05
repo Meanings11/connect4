@@ -24,9 +24,9 @@ class ScoreStrategy {
         void guessPlus();
         int guessMinus(char**);
         int getScore(int, int, int);
-        bool check2(int, int , int);
-        bool check3(int, int, int);
-        bool check4(int, int, int);
+        int check2(int, int , int);
+        int check3(int, int, int);
+        int check4(int, int, int);
         bool checkBound();
         bool checkPath();
         int chessPosition(int, char**);

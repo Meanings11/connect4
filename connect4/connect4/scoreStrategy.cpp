@@ -7,24 +7,35 @@
 //
 
 #include "scoreStrategy.hpp"
+#include <iostream>
 
+using namespace std;
 
 ScoreStrategy::ScoreStrategy(char** b){
     this->board = b;
     possibility = new predictPossibility[7];
+
+
 }
 
 void ScoreStrategy::guessPlus(){
     for(int i = 0; i < 7; i++){
+        //std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?"<<std::endl;
+
         char** temp = board;
+
         possibility[i].setCol(i+1);
+        
+        
         r_O = chessPosition(i, temp);
+
         possibility[i].setPlus(getScore(r_O, i+1, 1));
         temp[i][6-r_O] = 'O';
         possibility[i].setMinus(guessMinus(temp));
         delete [] temp;
     }
     pickMove();
+    std::cout << "!!!" <<std::endl;
     
 }
 
@@ -53,17 +64,21 @@ void ScoreStrategy::pickMove(){
 }
 
 int ScoreStrategy::getScore(int a, int b, int player){
+    cout << "GET SCORE" << endl;
+    
     int r = 6 - a;
     int c = b - 1;
     
-    int score = 0;
+    int score = 10;
+
+    //score = 2 * check2(r, c, player) + 20 * check3(r, c, player) + 1000 * check4(r, c, player);
     
-    score = 2 * check2(r, c, player) + 20 * check3(r, c, player) + 1000 * check4(r, c, player);
-    
+    //cout << score << endl;
+
     return score;
 }
 
-bool ScoreStrategy::check2(int r, int c, int player){
+int ScoreStrategy::check2(int r, int c, int player){
     int connect2Count = 0;
     
     char mark;
@@ -99,7 +114,7 @@ bool ScoreStrategy::check2(int r, int c, int player){
     return connect2Count;
 }
 
-bool ScoreStrategy::check3(int c, int r, int player){
+int ScoreStrategy::check3(int c, int r, int player){
     
     int connect3Count = 0;
     
@@ -141,7 +156,7 @@ bool ScoreStrategy::check3(int c, int r, int player){
     return connect3Count;
 }
 
-bool ScoreStrategy::check4(int c, int r, int player){
+int ScoreStrategy::check4(int c, int r, int player){
     
     int connect4Count = 0;
     
@@ -194,13 +209,17 @@ bool ScoreStrategy::checkPath(){
 }
 
 int ScoreStrategy::chessPosition(int c, char** t){
-    for (int i = 6-1; i >= 0 ; i--){
-        if (t[i][c-1] == ' '){
+
+
+    for (int i = 5; i >= 0 ; i--){
+        
+        if (t[i][c] != 'X' && t[i][c] != 'O'){
+
             return 6-i;
         }
-        continue;
+        // continue;
     }
-    return 0;
+    return 10;
 }
 
 ScoreStrategy::~ScoreStrategy(){
