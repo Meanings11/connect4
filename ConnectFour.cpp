@@ -1,24 +1,8 @@
 #include <iostream>
 #include <string>
 #include "ConnectFour.h"
-<<<<<<< HEAD:ConnectFour.cpp
-#include "ManhattanDistance.h"
-using namespace std;
+#include "scoreStrategy.hpp"
 
-ConnectFour::ConnectFour(){
-	col = 7;
-	row = 6;
-	counter = 0;
-
-	board = new char*[6];
-
-	for(int i = 0; i < 6; i++){
-		board[i] = new char[col];
-	}
-
-	for(int i = 0; i < 6; i++){
-		for(int k = 0; k < 7; k++){
-=======
 #include "test.h"
 // #include "ManhattanDistance.h"
 using namespace std;
@@ -35,14 +19,9 @@ void ConnectFour::initialize()
 		for (int k = 0; k < col; k++)
 		{
            
->>>>>>> master:ConnectFour.cpp
 			board[i][k] = ' ';
 		}
 	}
-}
-
-ConnectFour::~ConnectFour(){
-	delete[] board;
 }
 
 void ConnectFour::display()
@@ -68,7 +47,6 @@ void ConnectFour::playGame()
 	int m;
 	int n;
 	int check;
-	int computerChoice = 0;
 	display();
 	do
 	{
@@ -96,22 +74,13 @@ void ConnectFour::playGame()
 		//if col filled, skip this iteration
 		if (m >= 0)
 		{
-<<<<<<< HEAD:ConnectFour.cpp
-			board[m][player1Choice - 1] = 'O';
-			// cout << "row: " << m << endl;
-=======
 			board[m][player1Choice - 1] = 'X';
->>>>>>> master:ConnectFour.cpp
 			check = checkWinner();
 			if (check == 1)
 			{
 				display();
 				cout << "You win !" << endl;
-<<<<<<< HEAD:ConnectFour.cpp
-				return;
-=======
 				exit(0);
->>>>>>> master:ConnectFour.cpp
 			}
 			else
 			{
@@ -125,67 +94,56 @@ void ConnectFour::playGame()
 		}
 
         cout << "Rival's turn" << endl;
-<<<<<<< HEAD:ConnectFour.cpp
-        ManhattanDistance mh(row, col);
-        computerChoice = mh.pick(board);
-        cout<< "Computer's choice: " << computerChoice << endl;
-=======
-		/*
-			Call heuristic function here. For exmaple: 
-				ManhattanDistance mh(row, col);
-		*/
-        int computerChoice = 1;	//change this value, i'm hard-code it to 1
-		cout<< "Computer's choice: " << computerChoice << endl;
->>>>>>> master:ConnectFour.cpp
-		counter++;
+        
+		//call heuristic here
+		ScoreStrategy s(board);
+		s.guessPlus();
 
-		
-		for (n = row - 1; n >= 0; n--)
-		{
-			if (board[n][computerChoice - 1] != ' ')
-			{
-				continue;
-			}
-			else
-			{
-				break;
-			}
-		}
+		cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?"<<endl;
 
 
+		display();
+        // int computerChoice = 1;
+        // cout<< "Computer's choice: " << computerChoice << endl;
+		// counter++;
+		// for (n = row - 1; n >= 0; n--)
+		// {
+		// 	if (board[n][computerChoice - 1] != ' ')
+		// 	{
+		// 		continue;
+		// 	}
+		// 	else
+		// 	{
+		// 		break;
+		// 	}
+		// }
 
-		//if col filled, skip this iteration. may skip turn of AI
-		//so every heuristic function need to do boundary check
-		if (n >= 0)
-		{
-<<<<<<< HEAD:ConnectFour.cpp
-			board[n][computerChoice - 1] = 'X';
-			// cout << "row: " << n << endl;
-=======
-			board[n][computerChoice - 1] = 'O';
->>>>>>> master:ConnectFour.cpp
-			check = checkWinner();
-			if (check == 1)
-			{
-				display();
-				cout << "Player 2 wins !" << endl;
-				return;
-			}
-			else
-			{
-				display();
-			}
-		}
-		else
-		{
-			cout << "This column has been filled. Please select another column" << endl;
-			cout << endl;
-			continue;
-		}
+		// if (n >= 0)
+		// {
+		// 	board[n][computerChoice - 1] = 'O';
+		// 	// cout << "row: " << n << endl;
+		// 	check = checkWinner();
+		// 	if (check == 1)
+		// 	{
+		// 		display();
+		// 		cout << "Player 2 wins !" << endl;
+		// 		exit(0);
+		// 	}
+		// 	else
+		// 	{
+		// 		display();
+		// 	}
+		// }
+		// else
+		// {
+		// 	cout << "This column has been filled. Please select another column" << endl;
+		// 	cout << endl;
+		// 	continue;
+		// }
 
 	} while (counter <= row * col);
 	cout << "Tie !" << endl;
-	return;
+	exit(0);
 }
 
 int ConnectFour::checkWinner()
@@ -215,8 +173,6 @@ int ConnectFour::checkWinner()
 	}
 	return 0;
 }
-<<<<<<< HEAD:ConnectFour.cpp
-=======
 
 //this method is used to creating a customized game table
 void ConnectFour::createTest()
@@ -224,5 +180,8 @@ void ConnectFour::createTest()
 	test testBoard;
 	board = testBoard.create();
 	display();
+	ScoreStrategy t(board);
+	//check(row[i], col[i], player)
+	int score = t.check4(3,3,1);
+	cout << score << endl;
 }
->>>>>>> master:ConnectFour.cpp
