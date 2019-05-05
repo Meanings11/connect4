@@ -3,6 +3,8 @@
 #include "ConnectFour.h"
 #include "scoreStrategy.hpp"
 
+#include "test.h"
+// #include "ManhattanDistance.h"
 using namespace std;
 
 void ConnectFour::initialize()
@@ -25,7 +27,7 @@ void ConnectFour::initialize()
 void ConnectFour::display()
 {
 
-	cout << " 1 2 3 4 5 6 7 8" << endl;
+	cout << " 1 2 3 4 5 6 7" << endl;
 	for (int i = 0; i < row; i++)
 	{
 		for (int k = 0; k < col; k++)
@@ -69,10 +71,10 @@ void ConnectFour::playGame()
 			}
 		}
 
+		//if col filled, skip this iteration
 		if (m >= 0)
 		{
 			board[m][player1Choice - 1] = 'X';
-			// cout << "row: " << m << endl;
 			check = checkWinner();
 			if (check == 1)
 			{
@@ -170,4 +172,12 @@ int ConnectFour::checkWinner()
 		}
 	}
 	return 0;
+}
+
+//this method is used to creating a customized game table
+void ConnectFour::createTest()
+{
+	test testBoard;
+	board = testBoard.create();
+	display();
 }
