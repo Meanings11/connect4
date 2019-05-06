@@ -2,16 +2,13 @@ This repository is for connect4 game.
   
 **🧭User Guide** 
 
-1.Unzip source code package.  
-(can also be downloaded from https://github.com/Meanings11/connect4).  
-2.Open a terminal and Locate source code folder.  
-3.Enter command line “g++ *.cpp -o a” to compile source code.  
-4.Enter command line “./a.out” ( Linux/Mac ) or “./a.exe”( Windows ) to launch our program.
-Enjoy the game!
+1. Download and unzip source code package.  
+2. Open a terminal and Locate source code folder.  
+3. Enter command line “g++ *.cpp -o a” to compile source code.  
+4. Enter command line “./a.out” ( Linux/Mac ) or “./a.exe”( Windows ) to launch our program.
+5. Enjoy the game! Repeat step 4 if you want to play it again.  
 
-
-
-**💾参考资料**. 
+**💾Materials**. 
 
 Stanford Article:
  http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
