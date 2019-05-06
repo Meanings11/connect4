@@ -1,6 +1,7 @@
 This repository is for connect4 game.  
   
-**User Guide**
+**🧭User Guide** 
+
 1.Unzip source code package.  
 (can also be downloaded from https://github.com/Meanings11/connect4).  
 2.Open a terminal and Locate source code folder.  
