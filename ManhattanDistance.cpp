@@ -102,6 +102,11 @@ int ManhattanDistance::pick(char** board){
 		}
 	}else{
 		//compare all manhattan values stored, find the best one
+		//if no chess existed can possibly win, place chess in an empty column
+		if(rCount == 0){
+			return checkBound(board, 0) + 1;
+		}
+
 		rCount = rCount - 1;
 		for(int i = 0; i < rCount+1; i++){
 			if(tempA[i][3] < tempA[rCount][3]){

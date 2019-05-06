@@ -160,7 +160,15 @@ int ConnectFour::checkWinner()
 			{
 				return 1;
 			}
-			else if (n < col - 3 && k < row - 3 && board[k][n] != ' ' && board[k][n] == board[k + 1][n - 1] && board[k][n] == board[k + 2][n - 2] && board[k][n] == board[k + 3][n - 3])
+			else if (n > 2 && k < row - 3 && board[k][n] != ' ' && board[k][n] == board[k + 1][n - 1] && board[k][n] == board[k + 2][n - 2] && board[k][n] == board[k + 3][n - 3])
+			{
+				return 1;
+			}
+			else if (n < col && k < row && n > 2 && k > 2 && board[k][n] != ' ' && board[k][n] == board[k - 1][n - 1] && board[k][n] == board[k - 2][n - 2] && board[k][n] == board[k - 3][n - 3])
+			{
+				return 1;
+			}
+			else if (n < col - 3 && k > 2 && board[k][n] != ' ' && board[k][n] == board[k - 1][n + 1] && board[k][n] == board[k - 2][n + 2] && board[k][n] == board[k - 3][n + 3])
 			{
 				return 1;
 			}
