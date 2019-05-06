@@ -7,6 +7,7 @@
 // #include "ManhattanDistance.h"
 using namespace std;
 
+//Initialize an empty game board
 void ConnectFour::initialize()
 {
     board = new char* [row];
@@ -39,8 +40,9 @@ void ConnectFour::display()
 	}
 	cout << "===============" << endl;
 
-	//playGame();
 }
+
+//Play the game
 void ConnectFour::playGame()
 {
 	int player1Choice;
@@ -57,6 +59,7 @@ void ConnectFour::playGame()
 			cout << "Invalid input" << endl;
 			cout << "Choose a column(1-" << col << "): " << endl;
 			cin >> player1Choice;
+			cout << endl;
 		}
 		counter++;
 		for (m = row - 1; m >= 0; m--)
@@ -94,58 +97,55 @@ void ConnectFour::playGame()
 		}
 
         cout << "Rival's turn" << endl;
+		cout << endl;
         
 		//call heuristic here
 		ScoreStrategy s(board);
-		s.guessPlus();
+		
+		//display();
+        int computerChoice = s.guessPlus();
+        cout<< "Computer's choice: " << computerChoice << endl;
+		counter++;
+		for (n = row - 1; n >= 0; n--)
+		{
+			if (board[n][computerChoice - 1] != ' ')
+			{
+				continue;
+			}
+			else
+			{
+				break;
+			}
+		}
 
-		cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?"<<endl;
-
-
-		display();
-        // int computerChoice = 1;
-        // cout<< "Computer's choice: " << computerChoice << endl;
-		// counter++;
-		// for (n = row - 1; n >= 0; n--)
-		// {
-		// 	if (board[n][computerChoice - 1] != ' ')
-		// 	{
-		// 		continue;
-		// 	}
-		// 	else
-		// 	{
-		// 		break;
-		// 	}
-		// }
-
-		// if (n >= 0)
-		// {
-		// 	board[n][computerChoice - 1] = 'O';
-		// 	// cout << "row: " << n << endl;
-		// 	check = checkWinner();
-		// 	if (check == 1)
-		// 	{
-		// 		display();
-		// 		cout << "Player 2 wins !" << endl;
-		// 		exit(0);
-		// 	}
-		// 	else
-		// 	{
-		// 		display();
-		// 	}
-		// }
-		// else
-		// {
-		// 	cout << "This column has been filled. Please select another column" << endl;
-		// 	cout << endl;
-		// 	continue;
-		// }
+		if (n >= 0)
+		{
+			board[n][computerChoice - 1] = 'O';
+			check = checkWinner();
+			if (check == 1)
+			{
+				display();
+				cout << "Player 2 wins !" << endl;
+				exit(0);
+			}
+			else
+			{
+				display();
+			}
+		}
+		else
+		{
+			cout << "This column has been filled. Please select another column" << endl;
+			cout << endl;
+			continue;
+		}
 
 	} while (counter <= row * col);
 	cout << "Tie !" << endl;
 	exit(0);
 }
 
+//Check if someone successfully connect 4 chesses
 int ConnectFour::checkWinner()
 {
 	for (int k = 0; k < row; k++)
@@ -183,13 +183,13 @@ int ConnectFour::checkWinner()
 }
 
 //this method is used to creating a customized game table
-void ConnectFour::createTest()
-{
-	test testBoard;
-	board = testBoard.create();
-	display();
+// void ConnectFour::createTest()
+// {
+// 	test testBoard;
+// 	board = testBoard.create();
+// 	display();
 	//ScoreStrategy t(board);
 	//check(row[i], col[i], player)
 	// int score = t.check4(3,3,1);
 	// cout << score << endl;
-}
+// }
