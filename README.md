@@ -4,7 +4,7 @@ This repository is for connect4 game.
 
 1. Download and unzip source code package.  
 2. Open a terminal and Locate source code folder.  
-3. Enter command line “g++ *.cpp -o a” to compile source code.  
+3. Enter command line “g++ --std=c++11 *.cpp” to compile source code.  
 4. Enter command line “./a.out” ( Linux/Mac ) or “./a.exe”( Windows ) to launch our program.
 5. Enjoy the game! Repeat step 4 if you want to play it again.  
 
