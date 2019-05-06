@@ -3,8 +3,8 @@
 #include "ConnectFour.h"
 #include "scoreStrategy.hpp"
 
-#include "test.h"
-// #include "ManhattanDistance.h"
+// #include "test.h"
+#include "ManhattanDistance.h"
 using namespace std;
 
 //Initialize an empty game board
@@ -27,7 +27,8 @@ void ConnectFour::initialize()
 
 void ConnectFour::display()
 {
-
+	cout << endl;
+	cout << "===============" << endl;
 	cout << " 1 2 3 4 5 6 7" << endl;
 	for (int i = 0; i < row; i++)
 	{
@@ -46,9 +47,13 @@ void ConnectFour::display()
 void ConnectFour::playGame()
 {
 	int player1Choice;
+	int aiChoice;
+	int computerChoice;
 	int m;
 	int n;
 	int check;
+	
+	aiChoice = chooseHeuristic();
 	display();
 	do
 	{
@@ -95,16 +100,32 @@ void ConnectFour::playGame()
 			cout << "This column has been filled. Please select another column" << endl;
 			continue;
 		}
-
-        cout << "Rival's turn" << endl;
 		cout << endl;
+        cout << "Rival's turn" << endl;
         
 		//call heuristic here
-		ScoreStrategy s(board);
+		switch(aiChoice){
+			case 1:
+				{
+				ScoreStrategy s(board);
+				computerChoice =  s.guessPlus();
+				break;
+				}
+
+			case 2:
+				{
+				ManhattanDistance mh(row, col);
+				computerChoice =  mh.pick(board);
+				break;
+				}
+
+		}
+		
 		
 		//display();
-        int computerChoice = s.guessPlus();
-        cout<< "Computer's choice: " << computerChoice << endl;
+        cout<< "Computer's choice: " << computerChoice << endl << endl;
+
+
 		counter++;
 		for (n = row - 1; n >= 0; n--)
 		{
@@ -180,6 +201,27 @@ int ConnectFour::checkWinner()
 		}
 	}
 	return 0;
+}
+
+//this func is for use to choose heuristic
+int ConnectFour::chooseHeuristic()
+{
+	int choice;
+
+	do
+	{
+		cout << "Choose one of following heuristics" << endl;
+		cout << "  1. Score Strategy (Hard)" << endl;
+		cout << "  2. Manhattan Distance (Easy)" << endl;
+		cout << "  3. Unknown" << endl;
+		cout << endl;
+		cin >> choice;
+
+	}while (choice > 3 && choice < 1);
+	
+	
+	return choice;
+	
 }
 
 //this method is used to creating a customized game table

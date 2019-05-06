@@ -16,6 +16,7 @@ public:
 	void initialize();
 	void display();
 	void playGame();
+	int chooseHeuristic();
 	int checkWinner();
 
 

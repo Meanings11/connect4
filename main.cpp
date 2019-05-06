@@ -12,8 +12,9 @@
 using namespace std;
 
 int main(){
-    
-    cout<<"Welcome to Connect 4 !"<<endl;
+    cout << endl;
+    cout<<"     Welcome to Connect 4 !"<<endl;
+    cout<<"======================================" << endl;
     ConnectFour myConnectFour;
     myConnectFour.initialize();
     myConnectFour.playGame();
