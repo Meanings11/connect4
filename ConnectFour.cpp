@@ -28,6 +28,7 @@ void ConnectFour::initialize()
 void ConnectFour::display()
 {
 	cout << endl;
+	cout << "'X' is YOU, 'O' is AI" << endl;
 	cout << "===============" << endl;
 	cout << " 1 2 3 4 5 6 7" << endl;
 	for (int i = 0; i < row; i++)
