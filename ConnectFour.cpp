@@ -203,25 +203,29 @@ int ConnectFour::checkWinner()
 	return 0;
 }
 
-//this func is for use to choose heuristic
+//this func is for choosing heuristic
 int ConnectFour::chooseHeuristic()
 {
-	int choice;
+	int choice = 0;
 
-	do
-	{
-		cout << "Choose one of following heuristics" << endl;
-		cout << "  1. Score Strategy (Hard)" << endl;
-		cout << "  2. Manhattan Distance (Easy)" << endl;
-		cout << "  3. Unknown" << endl;
-		cout << endl;
-		cin >> choice;
+		do
+		{
+			cout << "Choose one of following heuristics" << endl;
+			cout << "  1. Score Strategy (Hard)" << endl;
+			cout << "  2. Manhattan Distance (Easy)" << endl;
+			cout << "  3. Unknown" << endl;
+			cout << endl;
+			cin >> choice;
 
-	}while (choice > 3 && choice < 1);
+			if(choice < 1 || choice > 3)
+			{
+				cout<< "Invalid input! Choose again" << endl;
+				cout<< endl;
+			}
+		}while(choice < 1 || choice > 3);
+		
 	
-	
-	return choice;
-	
+	return choice;	
 }
 
 //this method is used to creating a customized game table
