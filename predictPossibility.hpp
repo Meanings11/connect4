@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 class predictPossibility {
+    
     private:
         int col;
         int plus;
@@ -18,8 +19,11 @@ class predictPossibility {
         int total;
 
         int r_O;
+    
+    
     public:
         predictPossibility();
+        
         void setCol (int);
         void setPlus (int);
         void setMinus (int);

@@ -12,24 +12,26 @@
 #include <stdio.h>
 #include "predictPossibility.hpp"
 class ScoreStrategy {
+    
     private:
         predictPossibility* possibility;
         char** board;
-        //int r_O;
+
         int col = 7;
         int row = 6;
+    
     public:
         ScoreStrategy(char**);
         ~ScoreStrategy();
+        
         int guessPlus();
-        int guessMinus(char[6][7]);//char**);
+        int guessMinus(char[6][7]);
         int getScore(int, int, int);
         int check2(int, int , int);
         int check3(int, int, int);
         int check4(int, int, int);
-        bool checkBound();
-        bool checkPath();
-        int chessPosition(int, char[6][7]);//char**);
+        
+        int chessPosition(int, char[6][7]);
         int pickMove ();
     
 };

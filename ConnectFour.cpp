@@ -6,6 +6,7 @@
 // #include "ManhattanDistance.h"
 using namespace std;
 
+//Initialize an empty game board
 void ConnectFour::initialize()
 {
     board = new char* [row];
@@ -23,10 +24,7 @@ void ConnectFour::initialize()
 	}
 }
 
-// ConnectFour::~ConnectFour(){
-// 	delete[] board;
-// }
-
+//Display the board
 void ConnectFour::display()
 {
 
@@ -42,8 +40,9 @@ void ConnectFour::display()
 	}
 	cout << "===============" << endl;
 
-	//playGame();
 }
+
+//Play the game
 void ConnectFour::playGame()
 {
 	int player1Choice;
@@ -61,6 +60,7 @@ void ConnectFour::playGame()
 			cout << "Invalid input" << endl;
 			cout << "Choose a column(1-" << col << "): " << endl;
 			cin >> player1Choice;
+			cout << endl;
 		}
 		counter++;
 		for (m = row - 1; m >= 0; m--)
@@ -100,18 +100,12 @@ void ConnectFour::playGame()
 		}
 
         cout << "Rival's turn" << endl;
+		cout << endl;
         
 		//call heuristic here
 		ScoreStrategy s(board);
 		
-		/*
-			Call heuristic function here. For exmaple: 
-				ManhattanDistance mh(row, col);
-		*/
-        // int computerChoice = 1;	//change this value, i'm hard-code it to 1
-		// cout<< "Computer's choice: " << computerChoice << endl;
-		// counter++;
-		display();
+		//display();
         int computerChoice = s.guessPlus();
         cout<< "Computer's choice: " << computerChoice << endl;
 		counter++;
@@ -130,7 +124,6 @@ void ConnectFour::playGame()
 		if (n >= 0)
 		{
 			board[n][computerChoice - 1] = 'O';
-			// cout << "row: " << n << endl;
 			check = checkWinner();
 			if (check == 1)
 			{
@@ -149,37 +142,13 @@ void ConnectFour::playGame()
 			cout << endl;
 			continue;
 		}
-		//if col filled, skip this iteration. may skip turn of AI
-		//so every heuristic function need to do boundary check
-		// if (n >= 0)
-		// {
-		// 	// board[n][computerChoice - 1] = 'X';
-		// 	// // cout << "row: " << n << endl;
-		// 	board[n][computerChoice - 1] = 'O';
-		// 	check = checkWinner();
-		// 	if (check == 1)
-		// 	{
-		// 		display();
-		// 		cout << "Player 2 wins !" << endl;
-		// 		return;
-		// 	}
-		// 	else
-		// 	{
-		// 		display();
-		// 	}
-		// }
-		// else
-		// {
-		// 	cout << "This column has been filled. Please select another column" << endl;
-		// 	cout << endl;
-		// 	continue;
-		// }
 
 	} while (counter <= row * col);
 	cout << "Tie !" << endl;
 	return;
 }
 
+//Check if someone successfully connect 4 chesses
 int ConnectFour::checkWinner()
 {
 	for (int k = 0; k < row; k++)
