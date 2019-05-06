@@ -110,7 +110,7 @@ void ConnectFour::playGame()
 		*/
         // int computerChoice = 1;	//change this value, i'm hard-code it to 1
 		// cout<< "Computer's choice: " << computerChoice << endl;
-		counter++;
+		// counter++;
 		display();
         int computerChoice = s.guessPlus();
         cout<< "Computer's choice: " << computerChoice << endl;

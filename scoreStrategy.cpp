@@ -39,13 +39,6 @@ int ScoreStrategy::guessPlus(){
             }
         }       
 
-        for (int i=0; i<6; i++){
-                for (int k=0; k<7; k++){
-                    cout << board[i][k];
-                }
-            }
-        cout << endl;
-
         //cout << temp [4][0] <<endl;
 
         possibility[i].setCol(i+1);       
@@ -55,11 +48,20 @@ int ScoreStrategy::guessPlus(){
 
         possibility[i].setPlus(getScore(possibility[i].getR(), i+1, 1));
 
-        temp[6-possibility[i].getR()][i] = 'O';
 
-        possibility[i].setMinus(guessMinus(temp));
-        possibility[i].setTotal();
-        
+        if(6-possibility[i].getR() < 0 || 6-possibility[i].getR() == 0){
+            possibility[i].setPlus(0);
+            possibility[i].setMinus(5000);
+            possibility[i].setTotal();
+            cout << possibility[i].getTotal() <<endl;
+        }
+        else{
+            temp[6-possibility[i].getR()][i] = 'O';
+
+            possibility[i].setMinus(guessMinus(temp));
+            possibility[i].setTotal();
+        }
+
         // for(int i=0; i<6; i++){
         //     delete[] temp[i];
         // }
@@ -87,7 +89,11 @@ int ScoreStrategy::guessMinus(char t[6][7]){//char** t){
     int* minus = new int[7];
     for (int i = 0; i < 7; i++){
         int r_X = chessPosition(i,t);
-        minus[i] = getScore(r_X, i+1, 0);
+
+        if(6-r_X < 0)
+            minus[i] = 0;
+        else    
+            minus[i] = getScore(r_X, i+1, 0);
     }
     int key = minus[0];
     for (int k = 0; k < 7; k++){
@@ -108,9 +114,11 @@ int ScoreStrategy::pickMove(){
         }
     }
 
-    cout << best.getR() <<endl;
+    //cout << best.getR() <<endl;
     //board[6-best.getR()][best.getCol()-1] = 'O';
-    return best.getR();
+    cout << best.getTotal() <<endl;
+    cout << possibility[0].getR() <<endl;
+    return best.getCol();
 
     // for (int i=0; i<6; i++){
     //     for (int k=0; k<7; k++){
@@ -129,8 +137,11 @@ int ScoreStrategy::getScore(int a, int b, int player){
     
     int score = 0;
 
-    score = 2 * check2(r, c, player) + 20 * check3(r, c, player) + 1000 * check4(r, c, player);
-    
+    if(r < 0)
+        score = 0;
+    else
+        score = 2 * check2(r, c, player) + 20 * check3(r, c, player) + 1000 * check4(r, c, player);
+    //score = 20 * check2(r,c,player);
 
     return score;
 }
@@ -165,7 +176,7 @@ int ScoreStrategy::check2(int r, int c, int player){
     if (c < col-1 && r < row-1 && board[r+1][c+1] == mark)
         connect2Count++;
     
-    if (c < col-1 && r < row-1 && board[r-1][c-1] == mark)
+    if (c >0 && r >0 && board[r-1][c-1] == mark)
         connect2Count++;
     
     return connect2Count;
@@ -309,5 +320,5 @@ int ScoreStrategy::chessPosition(int c, char t[6][7]){//char** t){
 }
 
 ScoreStrategy::~ScoreStrategy(){
-    delete [] board;
+    //delete [] board;
 }

@@ -31,6 +31,10 @@ void predictPossibility::setMinus(int m){
 
 void predictPossibility::setTotal(){
     this->total = this->plus - this->minus;
+    if (this->col == 4)
+        this->total += 4;
+    if (this->col == 3 || this->col == 5)
+        this->total += 3;
 }
 
 void predictPossibility::setR(int r){
