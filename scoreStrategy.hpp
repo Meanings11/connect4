@@ -21,8 +21,8 @@ class ScoreStrategy {
     public:
         ScoreStrategy(char**);
         ~ScoreStrategy();
-        void guessPlus();
-        int guessMinus(char[][7]);//char**);
+        int guessPlus();
+        int guessMinus(char[6][7]);//char**);
         int getScore(int, int, int);
         int check2(int, int , int);
         int check3(int, int, int);
@@ -30,7 +30,7 @@ class ScoreStrategy {
         bool checkBound();
         bool checkPath();
         int chessPosition(int, char[6][7]);//char**);
-        void pickMove ();
+        int pickMove ();
     
 };
 

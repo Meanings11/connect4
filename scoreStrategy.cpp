@@ -18,7 +18,7 @@ ScoreStrategy::ScoreStrategy(char** b){
 
 }
 
-void ScoreStrategy::guessPlus(){
+int ScoreStrategy::guessPlus(){
     for(int i = 0; i < 7; i++){
 
         // char** temp = new char*[6];
@@ -69,7 +69,7 @@ void ScoreStrategy::guessPlus(){
     }
 
 
-    pickMove();
+    return pickMove();
     
 }
 
@@ -98,7 +98,7 @@ int ScoreStrategy::guessMinus(char t[6][7]){//char** t){
     return key;
 }
 
-void ScoreStrategy::pickMove(){
+int ScoreStrategy::pickMove(){
     
     predictPossibility best;
     for (int i = 0; i < 7; i++){
@@ -108,9 +108,9 @@ void ScoreStrategy::pickMove(){
         }
     }
 
-    //cout << best.getCol() <<endl;
     cout << best.getR() <<endl;
-    board[6-best.getR()][best.getCol()-1] = 'O';
+    //board[6-best.getR()][best.getCol()-1] = 'O';
+    return best.getR();
 
     // for (int i=0; i<6; i++){
     //     for (int k=0; k<7; k++){

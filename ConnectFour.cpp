@@ -103,7 +103,7 @@ void ConnectFour::playGame()
         
 		//call heuristic here
 		ScoreStrategy s(board);
-		s.guessPlus();
+		
 		/*
 			Call heuristic function here. For exmaple: 
 				ManhattanDistance mh(row, col);
@@ -112,43 +112,43 @@ void ConnectFour::playGame()
 		// cout<< "Computer's choice: " << computerChoice << endl;
 		counter++;
 		display();
-        // int computerChoice = 1;
-        // cout<< "Computer's choice: " << computerChoice << endl;
-		// counter++;
-		// for (n = row - 1; n >= 0; n--)
-		// {
-		// 	if (board[n][computerChoice - 1] != ' ')
-		// 	{
-		// 		continue;
-		// 	}
-		// 	else
-		// 	{
-		// 		break;
-		// 	}
-		// }
+        int computerChoice = s.guessPlus();
+        cout<< "Computer's choice: " << computerChoice << endl;
+		counter++;
+		for (n = row - 1; n >= 0; n--)
+		{
+			if (board[n][computerChoice - 1] != ' ')
+			{
+				continue;
+			}
+			else
+			{
+				break;
+			}
+		}
 
-		// if (n >= 0)
-		// {
-		// 	board[n][computerChoice - 1] = 'O';
-		// 	// cout << "row: " << n << endl;
-		// 	check = checkWinner();
-		// 	if (check == 1)
-		// 	{
-		// 		display();
-		// 		cout << "Player 2 wins !" << endl;
-		// 		exit(0);
-		// 	}
-		// 	else
-		// 	{
-		// 		display();
-		// 	}
-		// }
-		// else
-		// {
-		// 	cout << "This column has been filled. Please select another column" << endl;
-		// 	cout << endl;
-		// 	continue;
-		// }
+		if (n >= 0)
+		{
+			board[n][computerChoice - 1] = 'O';
+			// cout << "row: " << n << endl;
+			check = checkWinner();
+			if (check == 1)
+			{
+				display();
+				cout << "Player 2 wins !" << endl;
+				exit(0);
+			}
+			else
+			{
+				display();
+			}
+		}
+		else
+		{
+			cout << "This column has been filled. Please select another column" << endl;
+			cout << endl;
+			continue;
+		}
 		//if col filled, skip this iteration. may skip turn of AI
 		//so every heuristic function need to do boundary check
 		// if (n >= 0)
