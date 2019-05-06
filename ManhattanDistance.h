@@ -20,6 +20,8 @@ class ManhattanDistance{
 
 		int defense(char**, int, int, int);
 
+		int checkBound(char**, int);
+
 		int getRow();
 		int getCol();
 };

@@ -60,7 +60,7 @@ int ManhattanDistance::pick(char** board){
 	//find every User's chess as a start point
 	for(int i = 0; i < row; i++){
 		for(int j = 0; j < col; j++){
-			if(board[i][j] == 'O'){
+			if(board[i][j] == 'X'){
 				for(int k = 0; k < 7; k++){
 					if(checkPath(board, j, i, k, 0) == true){
 						if(defense(board, i, j, k) != -1){
@@ -75,7 +75,7 @@ int ManhattanDistance::pick(char** board){
 	//find every AI's chess as a start point
 	for(int i = 0; i < row; i++){
 		for(int j = 0; j < col; j++){
-			if(board[i][j] == 'X'){
+			if(board[i][j] == 'O'){
 				ifFRound = 1;
 				//when find 1 chess, find all possible path to connect 4 pieces
 				//then calculate and store all manhattan distances, original
@@ -95,7 +95,7 @@ int ManhattanDistance::pick(char** board){
 	}
 	//check if it is the 1st round, if it is, suggest the default step
 	if(ifFRound == 0){
-		if(board[row-1][3] != 'O'){
+		if(board[row-1][3] != 'X'){
 			bestStep = 3;
 		}else{
 			bestStep = 2;
@@ -119,10 +119,10 @@ int ManhattanDistance::pick(char** board){
 			bestStep = tempA[rCount][0];
 		//top right
 		}else if(tempA[rCount][2] == 1){
-			if(board[x-1][y+1] != 'X'){
+			if(board[x-1][y+1] != 'O'){
 				bestStep = x + 1;
 			}else{
-				if(board[x-2][y+2] != 'X'){
+				if(board[x-2][y+2] != 'O'){
 					bestStep = x + 2;
 				}else{
 					bestStep = x + 3;
@@ -130,10 +130,10 @@ int ManhattanDistance::pick(char** board){
 			}
 		//right
 		}else if(tempA[rCount][2] == 2){
-			if(board[x][y+1] != 'X'){
+			if(board[x][y+1] != 'O'){
 				bestStep = x + 1;
 			}else{
-				if(board[x][y+2] != 'X'){
+				if(board[x][y+2] != 'O'){
 					bestStep = x + 2;
 				}else{
 					bestStep = x + 3;
@@ -141,10 +141,10 @@ int ManhattanDistance::pick(char** board){
 			}
 		//buttom right
 		}else if(tempA[rCount][2] == 3){
-			if(board[x+1][y+1] != 'X'){
+			if(board[x+1][y+1] != 'O'){
 				bestStep = x + 1;
 			}else{
-				if(board[x+2][y+2] != 'X'){
+				if(board[x+2][y+2] != 'O'){
 					bestStep = x + 2;
 				}else{
 					bestStep = x + 3;
@@ -152,10 +152,10 @@ int ManhattanDistance::pick(char** board){
 			}
 		//bottom left
 		}else if(tempA[rCount][2] == 4){
-			if(board[x+1][y-1] != 'X'){
+			if(board[x+1][y-1] != 'O'){
 				bestStep = x - 1;
 			}else{
-				if(board[x+2][y-2] != 'X'){
+				if(board[x+2][y-2] != 'O'){
 					bestStep = x - 2;
 				}else{
 					bestStep = x - 3;
@@ -163,10 +163,10 @@ int ManhattanDistance::pick(char** board){
 			}
 		//left
 		}else if(tempA[rCount][2] == 5){
-			if(board[x][y-1] != 'X'){
+			if(board[x][y-1] != 'O'){
 				bestStep = x - 1;
 			}else{
-				if(board[x][y-2] != 'X'){
+				if(board[x][y-2] != 'O'){
 					bestStep = x - 2;
 				}else{
 					bestStep = x - 3;
@@ -174,10 +174,10 @@ int ManhattanDistance::pick(char** board){
 			}
 		//top left
 		}else if(tempA[rCount][2] == 6){
-			if(board[x-1][y-1] != 'X'){
+			if(board[x-1][y-1] != 'O'){
 				bestStep = x - 1;
 			}else{
-				if(board[x-2][y-2] != 'X'){
+				if(board[x-2][y-2] != 'O'){
 					bestStep = x - 2;
 				}else{
 					bestStep = x - 3;
@@ -190,6 +190,7 @@ int ManhattanDistance::pick(char** board){
 		delete[] tempA[i];
 	}
 	delete[] tempA;
+	bestStep = checkBound(board, bestStep);
 	return bestStep + 1;
 }
 
@@ -198,9 +199,9 @@ bool ManhattanDistance::checkPath(char** board, int x, int y, int direction, int
 	//check need to attack of defence
 	char str;
 	if(aOrD == 0){
-		str = 'X';
-	}else if(aOrD == 1){
 		str = 'O';
+	}else if(aOrD == 1){
+		str = 'X';
 	}
 
 	//top
@@ -577,66 +578,78 @@ int ManhattanDistance::getCost(char** board, int x, int y, int direction){
 //defence when enemy has 1 more step to win
 int ManhattanDistance::defense(char** board, int x, int y, int direction){
 		if(direction == 0){
-			if(board[x-1][y] == 'O' && board[x-2][y] == 'O'){
+			if(board[x-1][y] == 'X' && board[x-2][y] == 'X'){
 				return y;
 			}
 		//top right
 		}else if(direction == 1){
-			if(board[x-1][y+1] == 'O' && board[x-2][y+2] == 'O' && board[x-2][y+3] != ' '){
+			if(board[x-1][y+1] == 'X' && board[x-2][y+2] == 'X' && board[x-2][y+3] != ' '){
 				return y+3;
 			}
 		//right
 		}else if(direction == 2){
 			if(row > x + 1){
-				if(board[x][y+1] == 'O' && board[x][y+2] == 'O' && board[x+1][y+3] != ' '){
+				if(board[x][y+1] == 'X' && board[x][y+2] == 'X' && board[x+1][y+3] != ' '){
 					return y+3;
 				}
 			}else{
-				if(board[x][y+1] == 'O' && board[x][y+2] == 'O'){
+				if(board[x][y+1] == 'X' && board[x][y+2] == 'X'){
 					return y+3;
 				}
 			}
 		//bottom right
 		}else if(direction == 3){
 			if(row > x + 4){
-				if(board[x+1][y+1] == 'O' && board[x+2][y+2] == 'O' && board[x+2][y+3] != ' '){
+				if(board[x+1][y+1] == 'X' && board[x+2][y+2] == 'X' && board[x+2][y+3] != ' '){
 					return y+3;
 				}
 			}else{
-				if(board[x+1][y+1] == 'O' && board[x+2][y+2] == 'O'){
+				if(board[x+1][y+1] == 'X' && board[x+2][y+2] == 'X'){
 					return y+3;
 				}
 			}
 		//bottom left	
 		}else if(direction == 4){
 			if(row > x + 4){
-				if(board[x+1][y-1] == 'O' && board[x+2][y-2] == 'O' && board[x+2][y-3] != ' '){
+				if(board[x+1][y-1] == 'X' && board[x+2][y-2] == 'X' && board[x+2][y-3] != ' '){
 					return y-3;
 				}
 			}else{
-				if(board[x+1][y-1] == 'O' && board[x+2][y-2] == 'O'){
+				if(board[x+1][y-1] == 'X' && board[x+2][y-2] == 'X'){
 					return y-3;
 				}
 			}
 		//left	
 		}else if(direction == 5){
 			if(row > x + 1){
-				if(board[x][y-1] == 'O' && board[x][y-2] == 'O' && board[x+1][y-3] != ' '){
+				if(board[x][y-1] == 'X' && board[x][y-2] == 'X' && board[x+1][y-3] != ' '){
 					return y-3;
 				}
 			}else{
-				if(board[x][y-1] == 'O' && board[x][y-2] == 'O'){
+				if(board[x][y-1] == 'X' && board[x][y-2] == 'X'){
 					return y-3;
 				}
 			}
 		//top left
 		}else if(direction == 6){
-			if(board[x-1][y-1] == 'O' && board[x-2][y-2] == 'O' && board[x-2][y-3] != ' '){
+			if(board[x-1][y-1] == 'X' && board[x-2][y-2] == 'X' && board[x-2][y-3] != ' '){
 				return y-3;
 			}
 		}
 
 		return -1;
+}
+
+int ManhattanDistance::checkBound(char** board, int y){
+	if(board[0][y] != ' '){
+		for(int i = 0; i < col; i++){
+			if(board[0][i] == ' '){
+				return i;
+			}
+		}
+	}else{
+		return y;
+	}
 }
 
 int ManhattanDistance::getRow(){

@@ -76,7 +76,7 @@ void ConnectFour::playGame()
 
 		if (m >= 0)
 		{
-			board[m][player1Choice - 1] = 'O';
+			board[m][player1Choice - 1] = 'X';
 			// cout << "row: " << m << endl;
 			check = checkWinner();
 			if (check == 1)
@@ -115,7 +115,7 @@ void ConnectFour::playGame()
 
 		if (n >= 0)
 		{
-			board[n][computerChoice - 1] = 'X';
+			board[n][computerChoice - 1] = 'O';
 			// cout << "row: " << n << endl;
 			check = checkWinner();
 			if (check == 1)
