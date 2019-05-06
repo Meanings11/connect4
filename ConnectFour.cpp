@@ -212,18 +212,18 @@ int ConnectFour::chooseHeuristic()
 		do
 		{
 			cout << "Choose one of following heuristics" << endl;
-			cout << "  1. Score Strategy (Hard)" << endl;
+			cout << "  1. Score Strategy (Recommanded)" << endl;
 			cout << "  2. Manhattan Distance (Easy)" << endl;
-			cout << "  3. Unknown" << endl;
+			// cout << "  3. Exhausted Strategy" << endl;
 			cout << endl;
 			cin >> choice;
 
-			if(choice < 1 || choice > 3)
+			if(choice < 1 || choice > 2)
 			{
 				cout<< "Invalid input! Choose again" << endl;
 				cout<< endl;
 			}
-		}while(choice < 1 || choice > 3);
+		}while(choice < 1 || choice > 2);
 		
 	
 	return choice;	
