@@ -2,8 +2,8 @@
 #include <string>
 #include "ConnectFour.h"
 #include "scoreStrategy.hpp"
+#include "exhaustScore.h"
 
-// #include "test.h"
 #include "ManhattanDistance.h"
 using namespace std;
 
@@ -16,10 +16,10 @@ void ConnectFour::initialize()
     }
 	for (int i = 0; i < row; i++)
 	{
-       
+
 		for (int k = 0; k < col; k++)
 		{
-           
+
 			board[i][k] = ' ';
 		}
 	}
@@ -53,7 +53,8 @@ void ConnectFour::playGame()
 	int m;
 	int n;
 	int check;
-	
+  	int trim = 0;
+
 	aiChoice = chooseHeuristic();
 	display();
 	do
@@ -103,7 +104,7 @@ void ConnectFour::playGame()
 		}
 		cout << endl;
         cout << "Rival's turn" << endl;
-        
+
 		//call heuristic here
 		switch(aiChoice){
 			case 1:
@@ -120,9 +121,24 @@ void ConnectFour::playGame()
 				break;
 				}
 
+      case 3:
+        {
+        if(trim<=14)
+            {
+              ScoreStrategy pre(board);
+				      computerChoice = pre.guessPlus();
+            }
+        else
+            {
+              ExhaustScore test(board);
+         		  computerChoice = test.AIchoice();
+            }
+        trim++;
+        break;
+        }
 		}
-		
-		
+
+
 		//display();
         cout<< "Computer's choice: " << computerChoice << endl << endl;
 
@@ -212,21 +228,21 @@ int ConnectFour::chooseHeuristic()
 		do
 		{
 			cout << "Choose one of following heuristics" << endl;
-			cout << "  1. Score Strategy (Recommanded)" << endl;
+			cout << "  1. Score Strategy (Recommended)" << endl;
 			cout << "  2. Manhattan Distance (Easy)" << endl;
-			// cout << "  3. Exhausted Strategy" << endl;
+			cout << "  3. Exhaust Score Strategy (Hard)" << endl;
 			cout << endl;
 			cin >> choice;
 
-			if(choice < 1 || choice > 2)
+			if(choice < 1 || choice > 3)
 			{
 				cout<< "Invalid input! Choose again" << endl;
 				cout<< endl;
 			}
-		}while(choice < 1 || choice > 2);
-		
-	
-	return choice;	
+		}while(choice < 1 || choice > 3);
+
+
+	return choice;
 }
 
 //this method is used to creating a customized game table

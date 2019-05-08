@@ -652,9 +652,8 @@ int ManhattanDistance::checkBound(char** board, int y){
 				return i;
 			}
 		}
-	}else{
-		return y;
 	}
+		return y;
 }
 
 int ManhattanDistance::getRow(){
